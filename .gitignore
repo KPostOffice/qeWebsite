@@ -1,0 +1,8 @@
+flask/*
+*.json
+__pycache__/*
+
+
+
+
+

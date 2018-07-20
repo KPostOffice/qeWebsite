@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Choose cards</title>
+  </head>
+
+  <body>
+    <h1>Choose type</h1>
+    <form class="type" action="/labels" method="get">
+      {% for val in result %}
+        <div>
+          <input type="radio" name="type" value='{{val}}'>
+          <label>{{val}}</label>
+        <div>
+      {% endfor %}
+    </form>
+    <input type="submit" name="" value="Next">
+  </body>
+
+</html>

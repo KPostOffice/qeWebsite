@@ -1,0 +1,19 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}Choose start and end dates{% endblock %}
+{% block content%}
+  <h1>{{self.title()}}</h1>
+  <form class="date" action="/graph" method="get">
+    <input id="startDate" name="start" type="date">
+    <input id="endDate" name="end" type="date">
+    <input type="submit" name="" value="Next">
+  </form>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+    {% include "./js/scripts.js"%}
+    date()
+  </script>
+{% endblock %}
