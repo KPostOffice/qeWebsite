@@ -1,26 +1,103 @@
-#container {
-  width: 1100px;
-  height: 650px;
-  margin: 0 auto;
-  margin-top: 50px;
-  position: relative;
-  top: 10%;
+* {
+    font-family: Overpass;
+}
+
+body {
+    background-color: #DCDCDC;
+}
+
+#content {
+    width: 1100px;
+    height: 650px;
+    margin: 0 auto;
+    margin-top: 0px;
+    position: relative;
+    top: 10%;    
 }
 
 #pngFromSvg {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 text {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 html, body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.data .background {
+    height: 100%;
+    width: 100%;
+    fill: #f3f3f3;
+}
+
+button {
+    background-color: #4C4C4C;
+    padding: 16px 28px 14px 28px;
+    margin: 30px 0px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    color: white;
+    font-size: 18px;
+    border: none;
+}
+
+button:hover {
+    background-color: #A30000;
+}
+
+input[type="text"] {
+    padding: 14px 28px 12px 28px;
+    margin: 30px 0px;
+    margin-left: 20px;
+    font-size: 18px;
+    background-color: white;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    overflow: hidden;
+    background-color: #4C4C4C;
+}
+
+.nav li {
+    float: left;
+   /* width: 160px; */
+    height: 52px;
+    padding: 0px 10px;
+    -webkit-transform: skew(330deg);
+    -moz-transform: skew(330deg);
+    -o-transform: skew(330deg);
+    transform: skew(330deg);
+}
+
+.nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    -webkit-transform: skew(-330deg);
+    -moz-transform: skew(-330deg);
+    -o-transform: skew(-330deg);
+    transform: skew(-330deg);
+}
+
+.nav li:hover:not(.active) {
+    background-color: #3C3C3C;
+}
+
+.nav .active {
+    background-color: #A30000;
 }

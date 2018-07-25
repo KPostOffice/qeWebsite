@@ -10,7 +10,7 @@ h1 {
 }
 
 form div {
-  padding: 5px;
+    padding: 5px;
 }
 
 /*
@@ -38,20 +38,24 @@ form div {
 }
 */
 
+#startDate {
+    margin-left: 5px;
+}
+
 #content {
     padding: 20px;
 }
 
 input[type="submit"] {
     background-color: #4C4C4C;
-    padding: 16px 28px 14px 28px;
+    padding: 14px 26px 12px 26px;
     margin: 30px 0px;
     margin-left: 5px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     color: white;
     font-family: Overpass;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
 }
 
