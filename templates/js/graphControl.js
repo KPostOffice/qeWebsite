@@ -8,7 +8,17 @@ var chartWidth = 900;
 
 //Distinct colors, these are just the rainbow.  Feel free to add more. These limit the number
 //of lines that can be defined on a single chart
-var rainbow = ["#3b0083", "#f0ab00", "#007a87", "#00b9e4", "#92d400", "#004153"]
+var rainbow = [
+               "#D80032",
+               "#00b9e4",
+               "#92d400",
+               "#fff700",
+               "#f0ab01",
+               "#ff00ae"
+               "#883955",
+               "#2F52E0",
+               "#6457A6",
+             ]
 
 //Sends GET request to a given link and returns a JS object
 function getJSONfile(fileName) {
@@ -62,7 +72,7 @@ function main(data) {
 
   data = {};
   title = test + ": " + subtest + ": " + type;  // Title of the graph
-  
+
 
   // Request data for each card
   for( i in cards ) {
@@ -78,7 +88,7 @@ function main(data) {
   maxData = -Infinity;
 
 
-  
+
   /////////////////////////////////////////////////////////////////////////////
 
   graphData = {};
@@ -87,7 +97,7 @@ function main(data) {
       for( label in labels ) {
 	key = card + ":" + labels[label]
 	if( ! (key in graphData) ) {
-	  graphData[key] = []    
+	  graphData[key] = []
         }
 	if( data[card][item]["data"] && data[card][item]["data"][labels[label]]) {
 	  val = data[card][item]["data"][labels[label]];
@@ -153,7 +163,7 @@ function main(data) {
       .attr("transform", "translate(" + padding.left + ",0)");
 
 
-  /* Generate line using xScale and yScale, which are subject to change from 
+  /* Generate line using xScale and yScale, which are subject to change from
      the onZoom function                                                    */
   /////////////////////////////////////////////////////////////////////////////
 
@@ -161,7 +171,7 @@ function main(data) {
                         .x(function (d) { return xScale(d.x) - padding.left })
                         .y(function (d) { return yScale(d.y) - padding.top })
                         .interpolate("linear");
-  
+
   /*           Create legend in the top right corner of the chart           */
   ////////////////////////////////////////////////////////////////////////////
 
@@ -248,7 +258,7 @@ function main(data) {
 
     circles = root.selectAll(".point");
     paths = root.selectAll(".line");
-      
+
     // xAxis is automatically rescaled by d3.zoom but the text needs to be fixed
     root.select(".x.axis").call(xAxis).selectAll("text")
           .style("text-anchor", "end")
@@ -316,7 +326,7 @@ function main(data) {
               "stroke" : "black",
               "stroke-width" : "1px"
           });
-   
+
     updateImage();
   }
 
