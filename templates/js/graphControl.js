@@ -8,7 +8,7 @@ var chartWidth = 900;
 
 //Distinct colors, these are just the rainbow.  Feel free to add more. These limit the number
 //of lines that can be defined on a single chart
-var rainbow = ["#ff0000", "#ff7f00", "#ffff00", "#00ff00", "#0000ff", "#8b00ff"]
+var rainbow = ["#3b0083", "#f0ab00", "#007a87", "#00b9e4", "#92d400", "#004153"]
 
 //Sends GET request to a given link and returns a JS object
 function getJSONfile(fileName) {
@@ -168,7 +168,7 @@ function main(data) {
   legend = root.append("g")
               .attr("class","legend")
               .attr("transform","translate(1025,50)")
-              .style("font-size","16px")
+              .style("font-size","16px");
 
   /////////////////////////////////////////////////////////////////////////////
 
@@ -180,9 +180,10 @@ function main(data) {
                 .attr("x", padding.left)
                 .attr("y", padding.top)
                 .attr("height", chartHeight)
-                .attr("width", chartWidth)
+                .attr("width", chartWidth);
 
-
+  data.append("rect")
+    .attr("class", "background");
 
   // Generate starting postions for each data point and the line graph
   // Add each entry to the legend
