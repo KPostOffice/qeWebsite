@@ -32,7 +32,6 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
         for card in cards:
             for test in tests:
                 search = genSearchString(card, test, curYear, curMonth)
-                print(search)
                 results = driveService.files().list( includeTeamDriveItems=True,
                                                      supportsTeamDrives=True, pageSize=100, q=search, corpora='domain').execute()
                 files = results["files"]
@@ -47,7 +46,6 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
 
     query = []
     for update in updateList:
-        pp.pprint(update)
         query.append(UpdateOne(
             {
                 "sheetId": update['sheetId'],

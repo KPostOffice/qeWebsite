@@ -1,0 +1,39 @@
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    overflow: hidden;
+    background-color: #4C4C4C;
+}
+
+.nav li {
+    float: left;
+   /* width: 160px; */
+    height: 52px;
+    padding: 0px 10px;
+    -webkit-transform: skew(330deg);
+    -moz-transform: skew(330deg);
+    -o-transform: skew(330deg);
+    transform: skew(330deg);
+}
+
+.nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    -webkit-transform: skew(-330deg);
+    -moz-transform: skew(-330deg);
+    -o-transform: skew(-330deg);
+    transform: skew(-330deg);
+}
+
+.nav li:hover:not(.active) {
+    background-color: #3C3C3C;
+}
+
+.nav .active {
+    background-color: #A30000;
+}

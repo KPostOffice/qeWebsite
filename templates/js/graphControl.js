@@ -12,12 +12,15 @@ var rainbow = [
                "#D80032",
                "#00b9e4",
                "#92d400",
-               "#fff700",
+               "#efea1f",
                "#f0ab01",
-               "#ff00ae"
+               "#ff00ae",
                "#883955",
                "#2F52E0",
                "#6457A6",
+               "#000000",
+               "#666666",
+               "#a5742a"
              ]
 
 //Sends GET request to a given link and returns a JS object

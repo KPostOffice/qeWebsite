@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
+  
   <head>
     {% block header %}
     <meta charset="utf-8">
@@ -10,7 +10,19 @@
   </head>
 
   <body>
-
+    {% block navbar %}
+        <div class="nav">
+            <ul>
+            {% for item in navbar %}
+                {% if curr == item[0] %}
+                    <li class="active"><a href="{{item[1]}}">{{item[0]}}</a></li>
+		{% else %}
+	            <li><a href="{{item[1]}}">{{item[0]}}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endblock %}
     <div id="content">
       {% block content %}{% endblock %}
     </div>

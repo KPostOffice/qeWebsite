@@ -1,0 +1,13 @@
+{% block navbar %}
+    <div class="nav">
+        <ul>
+        {% for item in navbar %}
+            {% if {{curr}} == item %}
+                <li class="active">{{curr}}</li>
+	    {% else %}
+	        <li>{{item}}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

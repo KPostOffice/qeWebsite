@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, request, jsonify, render_template, make_response
+from flask import Flask, request, jsonify, render_template, make_response, app
 import json
 import valid
 import re
@@ -60,7 +60,9 @@ def update():
     start = args['start']
     end = args['start'] if not 'end' in args else args['end']
 
-    return subprocess.getoutput('python3.4 dbUpdate.py -s {} -e {}'.format(start,end))
+    subprocess.Popen(['python3.4', 'dbUpdate.py', '-s', start, '-e', end])
+
+    return "OK", 200
 
 ###############################################################################
 
@@ -116,7 +118,8 @@ def getData():
 @app.route("/cards", methods=["GET"])
 def genFormCards():
     data = list(valid.validCards())
-    return render_template("card.html", result=data), 200
+    data.sort()
+    return render_template("card.html", result=data, navbar=[("Cards","/cards")], curr="Cards"), 200
 
 @app.route("/tests", methods=["GET"])
 def genFormTests():
@@ -129,7 +132,8 @@ def genFormTests():
         return render_template("reroute.html",page= "cards")
     ###########################################################################
     data = list(valid.validTests())
-    response = make_response(render_template("test.html", result=data))
+    data.sort()
+    response = make_response(render_template("test.html", result=data, navbar=[(cards,"/cards"), ("Tests","/tests")], curr="Tests"))
     response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
     return response, 200
 
@@ -138,17 +142,18 @@ def genFormSubtests():
     test = request.args.get("test")
     if not test:
         test = request.cookies.get("test")
-
+    cards = request.cookies.get("cards")
     # Validity check/rerouting
     ###########################################################################
-    if(not request.cookies.get("cards")):
+    if(not cards):
         return render_template("reroute.html", page="cards")
     elif not test:
         return render_template("reroute.html", page="tests")
     ###########################################################################
 
     data = list(valid.validSubtests(test))
-    response = make_response(render_template("subtest.html", result=data))
+    data.sort()
+    response = make_response(render_template("subtest.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), ("Subtest","/subtests")], curr="Subtest"))
     response.set_cookie("test", test)
     return response, 200
 
@@ -160,10 +165,11 @@ def genFormTypes():
         subtest = request.cookies.get("subtest")
 
     test = request.cookies.get("test")
+    cards = request.cookies.get("cards")
 
     # Validity check/rerouting
     ###########################################################################
-    if(not request.cookies.get("cards")):
+    if(not cards):
         return render_template("reroute.html", page="cards")
     elif not test:
         return render_template("reroute.html", page="tests")
@@ -172,7 +178,8 @@ def genFormTypes():
     ###########################################################################
 
     data = list(valid.validTypes(test,subtest))
-    response = make_response(render_template("type.html", result=data))
+    data.sort()
+    response = make_response(render_template("type.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), (subtest,"/subtests"), ("Type","/types")], curr="Type"))
     response.set_cookie("subtest", subtest)
     return response, 200
 
@@ -183,10 +190,10 @@ def genFormLabels():
         type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-
+    cards = request.cookies.get("cards")
     # Validity check/rerouting
     ###########################################################################
-    if(not request.cookies.get("cards")):
+    if(not cards):
         return render_template("reroute.html", page="cards")
     elif not test:
         return render_template("reroute.html", page="tests")
@@ -197,7 +204,8 @@ def genFormLabels():
     ###########################################################################
 
     data = list(valid.validLabels(test,subtest,type))
-    response = make_response(render_template("label.html", result=data))
+    data.sort()
+    response = make_response(render_template("label.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), (subtest,"/subtests"), (type,"/types"), ("Labels","/labels")], curr="Labels"))
     response.set_cookie("type", type)
     return response, 200
 
@@ -211,10 +219,10 @@ def genDatePage():
     type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-
+    cards = request.cookies.get("cards")
     # Validity check/rerouting
     ###########################################################################
-    if(not request.cookies.get("cards")):
+    if(not cards):
         return render_template("reroute.html", page="cards")
     elif not test:
         return render_template("reroute.html", page="tests")
@@ -226,7 +234,7 @@ def genDatePage():
         return render_template("reroute.html",page="labels")
     ###########################################################################
 
-    response = make_response(render_template("date.html"))
+    response = make_response(render_template("date.html", navbar=[(cards,"/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),(labels,"/labels"),("Dates","/dates")], curr="Dates"))
     response.set_cookie("labels", json.dumps(labels) )
     return response, 200
 
@@ -234,9 +242,24 @@ def genDatePage():
 def genGraph():
     start = request.args.get("start")
     end = request.args.get("end")
-    response = make_response(render_template("graph.html"))
+    update = request.args.get("update") == "on"
+    cards=request.cookies.get("cards")
+    test=request.cookies.get("test")
+    subtest=request.cookies.get("subtest")
+    type=request.cookies.get("type")
+    labels=request.cookies.get("labels")
+    start_month = start[0:7]
+    end_month = end[0:7]
+    print(start_month)
+    
+    if update:
+        print(subprocess.Popen(['python3.4', 'dbUpdate.py', '-s', start_month, '-e', end_month]))
+
+    response = make_response(render_template("graph.html", navbar=[(cards,"/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),
+                                                                   (labels,"/labels"),(start+" to "+end,"/dates"),("Graph","/graph")], curr="Graph"))
     response.set_cookie("start", start)
     response.set_cookie("end", end)
+    
     return response, 200
 
 ###############################################################################

@@ -3,11 +3,13 @@
 {% extends "base.html" %}
 
 {% block title %}Choose start and end dates{% endblock %}
+{% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content%}
   <h1>{{self.title()}}</h1>
   <form class="date" action="/graph" method="get">
-    <input id="startDate" name="start" type="date">
-    <input id="endDate" name="end" type="date">
+    <input id="startDate" name="start" type="date" required>
+    <input id="endDate" name="end" type="date" required><br><br>
+    <input id="update" name="update" type="checkbox"><label>Update data in this range</label><br>
     <input type="submit" name="" value="Next">
   </form>
 {% endblock %}

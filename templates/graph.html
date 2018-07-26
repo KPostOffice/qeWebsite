@@ -1,22 +1,18 @@
+ {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta http-equiv="content-type" charset="text/html;utf-8">
-    <link rel="stylesheet" type="text/css" href="css/simple.css" />
-    <title>Graph</title>
-  </head>
-  <body>
-    <div id="container">
-      <svg id="graph">
+{% block title %}Graph{% endblock %}
+{% block header %}<link rel="stylesheet" type="text/css" href="css/graph.css" />{% endblock %}
+{% block content%}
+    <svg id="graph">
 
-      </svg>
-    </div>
-  </body>
+    </svg>
+{% endblock %}
+
+{% block scripts %}
   <script src="js/svg2png.js" charset="utf-8"></script>
   <script src="js/d3.js" charset="utf-8"></script>
   <script src="js/graphControl.js" charset="utf-8"></script>
   <script type="text/javascript">
     main()
   </script>
-</html>
+{% endblock %}
