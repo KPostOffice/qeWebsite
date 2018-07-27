@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}QEGraph{% endblock %}
+
+{% block header %}<link rel="stylesheet" type="text/css" href="css/simple.css" />{% endblock %}
 
 {% block content%}
-  <h1>Home Page</h1>
   <p> 
-    netqe-infra01.knqe.lab.eng.bos.redhat.com:8009 is being 
-    used as a homepage for the Network-QE data visualization 
-    tool, below are the links to both the interactive website, 
-    as well as the python command line tool.
+    The Network-QE team is using this website, <span class="code">netqe-infra01.knqe.lab.eng.bos.redhat.com:8009</span>, to host our data visualization tool.
   </p>
-  <a href="/cards"> Interactive website </a>
+  <p>Run <span class="code">pip install qeGraphMaker</span> to get latest version of command line tool.</p>
+  <a href="/cards"><button>Interactive website</button></a>
 {% endblock %}
 

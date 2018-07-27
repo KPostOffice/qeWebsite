@@ -11,7 +11,7 @@ app.debug = True
 
 @app.route('/')
 def index():
-    return render_template("index.html"), 200
+    return render_template("index.html", navbar=[("Home","/"),("Documentation","/"),("Online tool", "/cards")], curr="Home"), 200
 
 '''
     These methods are for dynamically generating valid lists based on current
@@ -119,7 +119,7 @@ def getData():
 def genFormCards():
     data = list(valid.validCards())
     data.sort()
-    return render_template("card.html", result=data, navbar=[("Cards","/cards")], curr="Cards"), 200
+    return render_template("card.html", result=data, navbar=[("Home","/"), ("Cards","/cards")], curr="Cards"), 200
 
 @app.route("/tests", methods=["GET"])
 def genFormTests():
@@ -133,7 +133,7 @@ def genFormTests():
     ###########################################################################
     data = list(valid.validTests())
     data.sort()
-    response = make_response(render_template("test.html", result=data, navbar=[(cards,"/cards"), ("Tests","/tests")], curr="Tests"))
+    response = make_response(render_template("test.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)),"/cards"), ("Tests","/tests")], curr="Tests"))
     response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
     return response, 200
 
@@ -153,7 +153,7 @@ def genFormSubtests():
 
     data = list(valid.validSubtests(test))
     data.sort()
-    response = make_response(render_template("subtest.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), ("Subtest","/subtests")], curr="Subtest"))
+    response = make_response(render_template("subtest.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), ("Subtest","/subtests")], curr="Subtest"))
     response.set_cookie("test", test)
     return response, 200
 
@@ -179,7 +179,7 @@ def genFormTypes():
 
     data = list(valid.validTypes(test,subtest))
     data.sort()
-    response = make_response(render_template("type.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), (subtest,"/subtests"), ("Type","/types")], curr="Type"))
+    response = make_response(render_template("type.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), (subtest,"/subtests"), ("Type","/types")], curr="Type"))
     response.set_cookie("subtest", subtest)
     return response, 200
 
@@ -205,7 +205,7 @@ def genFormLabels():
 
     data = list(valid.validLabels(test,subtest,type))
     data.sort()
-    response = make_response(render_template("label.html", result=data, navbar=[(cards,"/cards"), (test,"/tests"), (subtest,"/subtests"), (type,"/types"), ("Labels","/labels")], curr="Labels"))
+    response = make_response(render_template("label.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), (subtest,"/subtests"), (type,"/types"), ("Labels","/labels")], curr="Labels"))
     response.set_cookie("type", type)
     return response, 200
 
@@ -234,7 +234,7 @@ def genDatePage():
         return render_template("reroute.html",page="labels")
     ###########################################################################
 
-    response = make_response(render_template("date.html", navbar=[(cards,"/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),(labels,"/labels"),("Dates","/dates")], curr="Dates"))
+    response = make_response(render_template("date.html", navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),(re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),("Dates","/dates")], curr="Dates"))
     response.set_cookie("labels", json.dumps(labels) )
     return response, 200
 
@@ -255,8 +255,8 @@ def genGraph():
     if update:
         print(subprocess.Popen(['python3.4', 'dbUpdate.py', '-s', start_month, '-e', end_month]))
 
-    response = make_response(render_template("graph.html", navbar=[(cards,"/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),
-                                                                   (labels,"/labels"),(start+" to "+end,"/dates"),("Graph","/graph")], curr="Graph"))
+    response = make_response(render_template("graph.html", navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),
+                                                                    (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),(start+" to "+end,"/dates"),("Graph","/graph")], curr="Graph"))
     response.set_cookie("start", start)
     response.set_cookie("end", end)
     
