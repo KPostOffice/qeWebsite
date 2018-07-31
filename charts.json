@@ -14,19 +14,13 @@
       "name": "bnxt"
     },
     "mlx4_en": {
-      "enabled": false
+      "name": "?"
     },
     "mlx5_core": {
-      "enabled": false
+      "name": "?"
     },
     "nfp": {
       "name": "Netronome"
-    },
-    "Mellanox Offload": {
-      "enabled": false
-    },
-    "Netronome Offload": {
-      "enabled": false
     },
     "enic": {
       "name": "Cisco Enic VIC-1340"
@@ -556,24 +550,33 @@
       },
       "64 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "64 Bytes VLAN": {
@@ -596,6 +599,11 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "64 Bytes Guest Enable Iommu": {
@@ -618,28 +626,42 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "128 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "128 Bytes VLAN": {
@@ -662,6 +684,11 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "128 Bytes Guest Enable Iommu": {
@@ -684,28 +711,42 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "256 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "256 Bytes VLAN": {
@@ -728,6 +769,11 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "256 Bytes Guest Enable Iommu": {
@@ -750,28 +796,42 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "1500 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "1500 Bytes VLAN": {
@@ -794,6 +854,11 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       },
       "1500 Bytes Guest Enable Iommu": {
@@ -816,6 +881,11 @@
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
         }
       }
     },
@@ -858,6 +928,14 @@
           "1500 Bytes SR-IOV Passthrough": "!H26",
           "1500 Bytes OVS-DPDK 2 PMD": "!I26",
           "1500 Bytes OVS-DPDK 4 PMD": "!J26"
+        }
+      },
+      "pmd avg status": {
+        "avg processing cycles": {
+          "64 Bytes OVS-DPDK 2 PMD": "!C2",
+          "64 Bytes OVS-DPDK 4 PMD": "!D2",
+          "1500 Bytes OVS-DPDK 2 PMD": "!C23",
+          "1500 Bytes OVS-DPDK 4 PMD": "!D23"
         }
       }
     }
