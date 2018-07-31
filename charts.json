@@ -1,0 +1,865 @@
+
+{
+  "cards": {
+    "ixgbe": {
+      "name": "ixgbe"
+    },
+    "i40e": {
+      "name": "xxv"
+    },
+    "qede": {
+      "name": "QLogic qede"
+    },
+    "bnxt_en": {
+      "name": "bnxt"
+    },
+    "mlx4_en": {
+      "enabled": false
+    },
+    "mlx5_core": {
+      "enabled": false
+    },
+    "nfp": {
+      "name": "Netronome"
+    },
+    "Mellanox Offload": {
+      "enabled": false
+    },
+    "Netronome Offload": {
+      "enabled": false
+    },
+    "enic": {
+      "name": "Cisco Enic VIC-1340"
+    }
+  },
+  "tests": {
+    "Endurance": {
+      "Endurance Testing PVP": {
+        "fps": {
+          "64 Bytes fps": "!B5",
+          "576 Bytes fps": "!I5",
+          "1218 Bytes fps": "!B26",
+          "1500 Bytes fps": "!I26"
+        }
+      },
+      "Endurance Testing PVP Latency": {
+        "latency avg": {
+          "64 Bytes Latency": "!B4",
+          "576 Bytes Latency": "!I4",
+          "1218 Bytes Latency": "!B25",
+          "1500 Bytes Latency": "!I25"
+        }
+      }
+    },
+    "Gating": {
+      "64 Bytes testpmd as switch": {
+        "fps": {
+          "1k Flows fps": "!B2"
+        },
+        "latency min": {
+          "1k Flows": "!H2"
+        },
+        "latency max": {
+          "1k Flows": "!H3"
+        },
+        "latency avg": {
+          "1k Flows": "!H4"
+        }
+      },
+      "64 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "1Q 4PMD": "!D2",
+          "2Q 4PMD": "!E2",
+          "4Q 8PMD": "!F2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!J2",
+          "1Q 4PMD": "!K2",
+          "2Q 4PMD": "!L2",
+          "4Q 8PMD": "!M2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!J3",
+          "1Q 4PMD": "!K3",
+          "2Q 4PMD": "!L3",
+          "4Q 8PMD": "!M3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!J4",
+          "1Q 4PMD": "!K4",
+          "2Q 4PMD": "!L4",
+          "4Q 8PMD": "!M4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!Q2",
+          "1Q 4PMD": "!R2",
+          "2Q 4PMD": "!S2",
+          "4Q 8PMD": "!T2"
+        }
+      },
+      "64 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "64 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "128 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!O2",
+          "2Q 4PMD": "!P2",
+          "4Q 8PMD": "!Q2"
+        }
+      },
+      "128 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        }
+      },
+      "128 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "256 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!O2",
+          "2Q 4PMD": "!P2",
+          "4Q 8PMD": "!Q2"
+        }
+      },
+      "256 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "256 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "1500 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "1Q 4PMD": "!D2",
+          "2Q 4PMD": "!E2",
+          "4Q 8PMD": "!F2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!J2",
+          "1Q 4PMD": "!K2",
+          "2Q 4PMD": "!L2",
+          "4Q 8PMD": "!M2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!J3",
+          "1Q 4PMD": "!K3",
+          "2Q 4PMD": "!L3",
+          "4Q 8PMD": "!M3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!J4",
+          "1Q 4PMD": "!K4",
+          "2Q 4PMD": "!L4",
+          "4Q 8PMD": "!M4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!Q2",
+          "1Q 4PMD": "!R2",
+          "2Q 4PMD": "!S2",
+          "4Q 8PMD": "!T2"
+        }
+      },
+      "1500 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "1500 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "2Q 4PMD": "!C2",
+          "4Q 8PMD": "!D2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!G2",
+          "2Q 4PMD": "!H2",
+          "4Q 8PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!G3",
+          "2Q 4PMD": "!H3",
+          "4Q 8PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!G4",
+          "2Q 4PMD": "!H4",
+          "4Q 8PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "2Q 4PMD": "!O2",
+          "4Q 8PMD": "!P2"
+        }
+      },
+      "64 Bytes Enable Mergable Buffers": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "1Q 4PMD": "!C2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!H2",
+          "1Q 4PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!H3",
+          "1Q 4PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!H4",
+          "1Q 4PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "1Q 4PMD": "!O2"
+        }
+      },
+      "1500 Bytes Enable Mergable Buffers": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "1Q 4PMD": "!C2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!H2",
+          "1Q 4PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!H3",
+          "1Q 4PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!H4",
+          "1Q 4PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "1Q 4PMD": "!O2"
+        }
+      },
+      "2000 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "1Q 4PMD": "!C2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!H2",
+          "1Q 4PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!H3",
+          "1Q 4PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!H4",
+          "1Q 4PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "1Q 4PMD": "!O2"
+        }
+      },
+      "9000 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!B2",
+          "1Q 4PMD": "!C2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!H2",
+          "1Q 4PMD": "!I2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!H3",
+          "1Q 4PMD": "!I3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!H4",
+          "1Q 4PMD": "!I4"
+        },
+        "average processing cycles": {
+          "1Q 2PMD": "!N2",
+          "1Q 4PMD": "!O2"
+        }
+      },
+      "64 Bytes Higher Flow": {
+        "fps": {
+          "10k Flows": "!B2",
+          "100k Flows": "!C2",
+          "1mil Flows": "!D2"
+        },
+        "latency min": {
+          "10k Flows": "!H2",
+          "100k Flows": "!I2",
+          "1mil Flows": "!J2"
+        },
+        "latency max": {
+          "10k Flows": "!H3",
+          "100k Flows": "!I3",
+          "1mil Flows": "!J3"
+        },
+        "latency avg": {
+          "10k Flows": "!H4",
+          "100k Flows": "!I4",
+          "1mil Flows": "!J4"
+        },
+        "average processing cycles": {
+          "10k flows": "!N2",
+          "100k flows": "!O2",
+          "1mil Flows": "!P2"
+        }
+      },
+      "1500 Bytes Higher Flow": {
+        "fps": {
+          "10k Flows": "!B2",
+          "100k Flows": "!C2",
+          "1mil Flows": "!D2"
+        },
+        "latency min": {
+          "10k Flows": "!H2",
+          "100k Flows": "!I2",
+          "1mil Flows": "!J2"
+        },
+        "latency max": {
+          "10k Flows": "!H3",
+          "100k Flows": "!I3",
+          "1mil Flows": "!J3"
+        },
+        "latency avg": {
+          "10k Flows": "!H4",
+          "100k Flows": "!I4",
+          "1mil Flows": "!J4"
+        },
+        "average processing cycles": {
+          "10k flows": "!N2",
+          "100k flows": "!O2",
+          "1mil Flows": "!P2"
+        }
+      },
+      "OVS-Kernel-Linuxbridge": {}
+    },
+    "Weekly": {
+      "64 Bytes testpmd as switch": {
+        "fps": {
+          "1k Flows fps": "!B2"
+        },
+        "latency min": {
+          "1k Flows": "!H2"
+        },
+        "latency max": {
+          "1k Flows": "!H3"
+        },
+        "latency avg": {
+          "1k Flows": "!H4"
+        }
+      },
+      "64 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "64 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "64 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "128 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "128 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "128 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "256 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "256 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "256 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "1500 Bytes No VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "1500 Bytes VLAN": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      },
+      "1500 Bytes Guest Enable Iommu": {
+        "fps": {
+          "1Q 2PMD": "!C2",
+          "2Q 4PMD": "!D2",
+          "4Q 8PMD": "!E2"
+        },
+        "latency min": {
+          "1Q 2PMD": "!I2",
+          "2Q 4PMD": "!J2",
+          "4Q 8PMD": "!K2"
+        },
+        "latency max": {
+          "1Q 2PMD": "!I3",
+          "2Q 4PMD": "!J3",
+          "4Q 8PMD": "!K3"
+        },
+        "latency avg": {
+          "1Q 2PMD": "!I4",
+          "2Q 4PMD": "!J4",
+          "4Q 8PMD": "!K4"
+        }
+      }
+    },
+    "Nightly":
+    {
+      "Results":
+      {
+        "fps":
+        {
+          "64 Bytes SR-IOV Passthrough": "!B2",
+          "64 Bytes OVS-DPDK 2 PMD": "!C2",
+          "64 Bytes OVS-DPDK 4 PMD": "!D2",
+          "1500 Bytes SR-IOV Passthrough": "!B24",
+          "1500 Bytes OVS-DPDK 2 PMD": "!C24",
+          "1500 Bytes OVS-DPDK 4 PMD": "!D24"
+        },
+        "latency min":
+        {
+          "64 Bytes SR-IOV Passthrough": "!H2",
+          "64 Bytes OVS-DPDK 2 PMD": "!I2",
+          "64 Bytes OVS-DPDK 4 PMD": "!J2",
+          "1500 Bytes SR-IOV Passthrough": "!H24",
+          "1500 Bytes OVS-DPDK 2 PMD": "!I24",
+          "1500 Bytes OVS-DPDK 4 PMD": "!J24"
+        },
+        "latency max":
+        {
+          "64 Bytes SR-IOV Passthrough": "!H3",
+          "64 Bytes OVS-DPDK 2 PMD": "!I3",
+          "64 Bytes OVS-DPDK 4 PMD": "!J3",
+          "1500 Bytes SR-IOV Passthrough": "!H25",
+          "1500 Bytes OVS-DPDK 2 PMD": "!I25",
+          "1500 Bytes OVS-DPDK 4 PMD": "!J25"
+        },
+        "latency avg":
+        {
+          "64 Bytes SR-IOV Passthrough": "!H4",
+          "64 Bytes OVS-DPDK 2 PMD": "!I4",
+          "64 Bytes OVS-DPDK 4 PMD": "!J4",
+          "1500 Bytes SR-IOV Passthrough": "!H26",
+          "1500 Bytes OVS-DPDK 2 PMD": "!I26",
+          "1500 Bytes OVS-DPDK 4 PMD": "!J26"
+        }
+      }
+    }
+  }
+}
