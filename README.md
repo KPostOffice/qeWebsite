@@ -29,5 +29,31 @@ pip install qeGraphMaker
 Further documentation of the command line tool can be found [here]()
 
 ## Debugging
+Most of the debugging information can be found under the running the website header.  If the website throws an error please submit a ticket and let us know so that we can get someone started on fixing it right away.
 
 ## API Endings
+* `/charts` : GET JSON data that specifies structure of Google Sheets pages
+
+* `/valid` :
+    * `/tests` : GET all possible tests
+    * `/cards` : GET all possible cards
+    * `/subtests?test=<testName>` : GET all possible subtests given some test
+    * `/types?test=<testName>&subtest=<subtestName>` : GET all possible types given some test and subtest
+    * `/labels?test=<testName>&subtest=<subtestName>&type=<type>` : GET all possible labels given some test, subtest, and type
+
+
+* `/update` : POST with arguments for `start` and `end` of form `MM-YYYY`.  Updates database between the two given months
+
+* `/data` : GET request with optional args to queries the database
+    ###### Arguments:
+    * test
+    * type
+    * cardName
+    * subtest
+    * epochStart
+    * epochEnd
+    * sheetId
+
+
+* `/js/<fileName>` : get a CSS file that is used on the website
+* `/css/<fileName>` : get a JS file that is used on the website
