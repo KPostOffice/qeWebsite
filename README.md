@@ -3,15 +3,15 @@
 This website is for internal Red Hat use by the Network QE team.  To access you must be logged onto the Red Hat internal network or have a VPN running. It is hosted at [`http://netqe-infra01.knqe.lab.eng.bos.redhat.com:8009/`](http://netqe-infra01.knqe.lab.eng.bos.redhat.com:8009/). It uses Python Flask in order to handle requests for both API calls and regular website use.  The D3.js library was used to create the interactive graph that is generated after the form is completely filled out. The API calls are for use by the command line tool, however I have listed them below in case anyone else finds them useful.
 ## Running the Website
 This website should automatically run on a server restart. However if it isn't just run the command:
-```bash
+```
 screen -d -m python3.4 /root/api/app.py
 ```
 This will start they Flask server. If the `mongo-db` server isn't running similarly run the command:
 
-```bash
+```
 screen -d -m mongod --dbpath /root/data --auth
 ```
-
+a
 In most cases these two commands should make the website reachable. If it does not however, the most likely scenario is that one of the two is failing. To check if this is the case run the commands without detaching them (remove `screen -d -m`).
 
 ## Using the Website
@@ -45,7 +45,7 @@ Most of the debugging information can be found under the running the website hea
 * `/update` : POST with arguments for `start` and `end` of form `MM-YYYY`.  Updates database between the two given months
 
 * `/data` : GET request with optional args to queries the database
-    ###### Arguments:
+###### Arguments:
     * test
     * type
     * cardName
