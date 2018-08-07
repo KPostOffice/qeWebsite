@@ -4,12 +4,12 @@ This website is for internal Red Hat use by the Network QE team.  To access you 
 ## Running the Website
 This website should automatically run on a server restart. However if it isn't just run the command:
 ```
-screen -d -m python3.4 /root/api/app.py
+$ screen -d -m python3.4 /root/api/app.py
 ```
 This will start they Flask server. If the `mongo-db` server isn't running similarly run the command:
 
 ```
-screen -d -m mongod --dbpath /root/data --auth
+$ screen -d -m mongod --dbpath /root/data --auth
 ```
 a
 In most cases these two commands should make the website reachable. If it does not however, the most likely scenario is that one of the two is failing. To check if this is the case run the commands without detaching them (remove `screen -d -m`).
@@ -24,7 +24,7 @@ The instructions on each page of the website are fairly straight forward.  There
 ## Command Line Tool
 To install the command line tool first install python3.x, then run the command:
 ```
-pip install qeGraphMaker
+$ pip install qeGraphMaker
 ```
 Further documentation of the command line tool can be found [here](https://github.com/KPostOffice/QETool_pip)
 
