@@ -45,7 +45,8 @@ Most of the debugging information can be found under the running the website hea
 * `/update` : POST with arguments for `start` and `end` of form `MM-YYYY`.  Updates database between the two given months
 
 * `/data` : GET request with optional args to queries the database
-###### Arguments:
+
+  **Arguments:**
     * test
     * type
     * cardName
