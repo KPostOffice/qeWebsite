@@ -26,7 +26,7 @@ To install the command line tool first install python3.x, then run the command:
 ```
 pip install qeGraphMaker
 ```
-Further documentation of the command line tool can be found [here]()
+Further documentation of the command line tool can be found [here](https://github.com/KPostOffice/QETool_pip)
 
 ## Debugging
 Most of the debugging information can be found under the running the website header.  If the website throws an error please submit a ticket and let us know so that we can get someone started on fixing it right away.
