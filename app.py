@@ -11,7 +11,7 @@ app.debug = True
 
 @app.route('/')
 def index():
-    return render_template("index.html", navbar=[("Home","/"),("Documentation","/"),("Online tool", "/cards")], curr="Home"), 200
+    return render_template("index.html", navbar=[("Home","/"),("Documentation","https://github.com/KPostOffice/qeWebsite"),("Online tool", "/cards")], curr="Home"), 200
 
 '''
     These methods are for dynamically generating valid lists based on current
