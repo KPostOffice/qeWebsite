@@ -11,9 +11,13 @@ app.debug = True
 
 @app.route("/")
 def index():
-    return render_template("index.html", navbar=[("Home","/"),
-                            ("Documentation","https://github.com/KPostOffice/qeWebsite"),
-                            ("Online tool", "/cards")], curr="Home"), 200
+    return render_template("index.html",
+                           navbar = [
+                                      ("Home","/"),
+                                      ("Documentation","https://github.com/KPostOffice/qeWebsite"),
+                                      ("Online tool", "/cards")
+                                    ],
+                                    curr="Home"), 200
 
 """
     These methods are for dynamically generating valid lists based on current
@@ -61,9 +65,7 @@ def update():
 
     start = args["start"]
     end = args["start"] if not "end" in args else args["end"]
-
     subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start, "-e", end])
-
     return "OK", 200
 
 ###############################################################################
@@ -118,7 +120,12 @@ def getData():
 def genFormCards():
     data = list(valid.validCards())
     data.sort()
-    return render_template("card.html", result=data, navbar=[("Home", "/"), ("Cards", "/cards")], curr = "Cards"), 200
+    return render_template("card.html", result = data,
+                           navbar = [
+                                      ("Home", "/"),
+                                      ("Cards", "/cards")
+                                    ],
+                           curr = "Cards"), 200
 
 @app.route("/tests", methods = ["GET"])
 def genFormTests():
@@ -132,7 +139,13 @@ def genFormTests():
     ###########################################################################
     data = list(valid.validTests())
     data.sort()
-    response = make_response(render_template("test.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), ("Tests", "/tests")], curr = "Tests"))
+    response = make_response(render_template("test.html", result = data,
+                                             navbar = [
+                                                        ("Home", "/"),
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
+                                                        ("Tests", "/tests")
+                                                      ],
+                                             curr = "Tests"))
     response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
     return response, 200
 
@@ -152,17 +165,22 @@ def genFormSubtests():
 
     data = list(valid.validSubtests(test))
     data.sort()
-    response = make_response(render_template("subtest.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), ("Subtest", "/subtests")], curr = "Subtest"))
+    response = make_response(render_template("subtest.html", result = data,
+                                             navbar = [
+                                                        ("Home", "/"),
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
+                                                        (test, "/tests"),
+                                                        ("Subtest", "/subtests")
+                                                      ],
+                                             curr = "Subtest"))
     response.set_cookie("test", test)
     return response, 200
 
 @app.route("/types", methods = ["GET"])
 def genFormTypes():
     subtest = request.args.get("subtest")
-
     if not subtest:
         subtest = request.cookies.get("subtest")
-
     test = request.cookies.get("test")
     cards = request.cookies.get("cards")
 
@@ -176,13 +194,21 @@ def genFormTypes():
         return render_template("reroute.html", page = "subtests")
     ###########################################################################
 
-    data = list(valid.validTypes(test,subtest))
+    data = list(valid.validTypes(test, subtest))
     data.sort()
-    response = make_response(render_template("type.html", result = data, navbar=[("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), (subtest, "/subtests"), ("Type", "/types")], curr = "Type"))
+    response = make_response(render_template("type.html", result = data,
+                                             navbar=[
+                                                      ("Home", "/"),
+                                                      (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
+                                                      (test, "/tests"),
+                                                      (subtest, "/subtests"),
+                                                      ("Type", "/types")
+                                                    ],
+                                            curr = "Type"))
     response.set_cookie("subtest", subtest)
     return response, 200
 
-@app.route("/labels", methods=["GET"])
+@app.route("/labels", methods = ["GET"])
 def genFormLabels():
     type = request.args.get("type")
     if not type:
@@ -190,6 +216,7 @@ def genFormLabels():
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards")
+
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -204,11 +231,20 @@ def genFormLabels():
 
     data = list(valid.validLabels(test, subtest, type))
     data.sort()
-    response = make_response(render_template("label.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), (subtest, "/subtests"), (type, "/types"), ("Labels", "/labels")], curr = "Labels"))
+    response = make_response(render_template("label.html", result = data,
+                                             navbar = [
+                                                        ("Home", "/"),
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), 
+                                                        (test, "/tests"),
+                                                        (subtest, "/subtests"),
+                                                        (type, "/types"),
+                                                        ("Labels", "/labels")
+                                                      ],
+                                             curr = "Labels"))
     response.set_cookie("type", type)
     return response, 200
 
-@app.route("/dates", methods=["GET"])
+@app.route("/dates", methods = ["GET"])
 def genDatePage():
 
     labels = request.args.getlist("labels")
@@ -233,7 +269,17 @@ def genDatePage():
         return render_template("reroute.html",page = "labels")
     ###########################################################################
 
-    response = make_response(render_template("date.html", navbar = [("Home","/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),(test, "/tests"), (subtest, "/subtests"), (type, "/types"),(re.sub(r'[\'\"\[\]]', r'', str(labels)), "/labels"),("Dates", "/dates")], curr = "Dates"))
+    response = make_response(render_template("date.html",
+                                             navbar = [
+                                                        ("Home", "/"),
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
+                                                        (test, "/tests"),
+                                                        (subtest, "/subtests"),
+                                                        (type, "/types"),
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(labels)), "/labels"),
+                                                        ("Dates", "/dates")
+                                                      ],
+                                             curr = "Dates"))
     response.set_cookie("labels", json.dumps(labels) )
     return response, 200
 
@@ -254,8 +300,17 @@ def genGraph():
     if update:
         print(subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start_month, "-e", end_month]))
 
-    response = make_response(render_template("graph.html", navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),
-                                                                    (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),(start+" to "+end,"/dates"),("Graph","/graph")], curr="Graph"))
+    response = make_response(render_template("graph.html",
+                                             navbar = [
+                                                        ("Home","/"),
+                                                        (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),
+                                                        (test,"/tests"),
+                                                        (subtest,"/subtests"),
+                                                        (type,"/types"),
+                                                        (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),
+                                                        (start+" to "+end,"/dates"), ("Graph","/graph")
+                                                      ],
+                                             curr="Graph"))
     response.set_cookie("start", start)
     response.set_cookie("end", end)
 
@@ -264,13 +319,13 @@ def genGraph():
 ###############################################################################
 
 
-@app.route("/js/<fileName>", methods=["GET"])
+@app.route("/js/<fileName>", methods = ["GET"])
 def getJavascript(fileName):
     return render_template("js/" + fileName), 200
 
 
 
-@app.route("/css/<fileName>", methods=["GET"])
+@app.route("/css/<fileName>", methods = ["GET"])
 def getCss(fileName):
     return render_template("css/" + fileName), 200, {"Content-Type": "text/css"};
 
