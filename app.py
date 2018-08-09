@@ -9,71 +9,71 @@ from config import collection, dateRegex
 app = Flask(__name__)
 app.debug = True
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template("index.html", navbar=[("Home","/"),("Documentation","https://github.com/KPostOffice/qeWebsite"),("Online tool", "/cards")], curr="Home"), 200
+    return render_template("index.html", navbar=[("Home","/"),
+                            ("Documentation","https://github.com/KPostOffice/qeWebsite"),
+                            ("Online tool", "/cards")], curr="Home"), 200
 
-'''
+"""
     These methods are for dynamically generating valid lists based on current
     input.  Information is located in charts.json
-'''
+"""
 ###############################################################################
-@app.route('/charts', methods=['GET'])
+@app.route("/charts", methods = ["GET"])
 def getChart():
-    file = open('charts.json')
+    file = open("charts.json")
     return jsonify(json.loads(file.read()))
 
-@app.route('/valid/tests', methods=['GET'])
+@app.route("/valid/tests", methods = ["GET"])
 def getTestReg():
     return jsonify(list(valid.validTests())), 200
 
-@app.route('/valid/cards', methods=['GET'])
+@app.route("/valid/cards", methods = ["GET"])
 def getCardsReg():
     return jsonify(list(valid.validCards())), 200
 
-@app.route('/valid/subtests', methods=['GET'])
+@app.route("/valid/subtests", methods = ["GET"])
 def getSubtestReg():
     args = request.args
-    return jsonify(list(valid.validSubtests(args['test']))), 200
+    return jsonify(list(valid.validSubtests(args["test"]))), 200
 
-@app.route('/valid/types', methods=['GET'])
+@app.route("/valid/types", methods = ["GET"])
 def getTypesReg():
     args = request.args
-    return jsonify(list(valid.validTypes(args['test'],args['subtest']))), 200
+    return jsonify(list(valid.validTypes(args["test"], args["subtest"]))), 200
 
-@app.route('/valid/labels', methods=['GET'])
+@app.route("/valid/labels", methods = ["GET"])
 def getLabelsReg():
     args = request.args
-    return jsonify(list(valid.validLabels(args['test'],args['subtest'],args['type']))), 200
+    return jsonify(list(valid.validLabels(args["test"], args["subtest"], args["type"]))), 200
 ###############################################################################
 
-'''
+"""
     This route takes two dates and runs an update on the collection QE_Test_Data
-'''
+"""
 ###############################################################################
-@app.route('/update', methods=['POST'])
+@app.route("/update", methods = ["POST"])
 def update():
     args = request.form
-    if(not 'start' in args or not re.match(dateRegex,args['start']) or ('end' in args and not re.match(dateRegex,args['end']))):
+    if(not "start" in args or not re.match(dateRegex,args["start"]) or ("end" in args and not re.match(dateRegex, args["end"]))):
         return jsonify({"400 error": "Bad request"}), 400
 
-    start = args['start']
-    end = args['start'] if not 'end' in args else args['end']
+    start = args["start"]
+    end = args["start"] if not "end" in args else args["end"]
 
-    subprocess.Popen(['python3.4', 'dbUpdate.py', '-s', start, '-e', end])
+    subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start, "-e", end])
 
     return "OK", 200
 
 ###############################################################################
 
-'''
+"""
     Take any number of kwargs and run a search using them. Fields must match
     those that are in the collection QE_Test_Data to get results
-'''
-# TODO: Make arguments optional
-#       Hard part is start and end because of their modifiers
+"""
 ###############################################################################
-@app.route('/data', methods=['GET'])
+@app.route("/data", methods = ["GET"])
 def getData():
     args = request.args
     query = {}
@@ -96,7 +96,7 @@ def getData():
 
     data = (collection.find(
         query,
-        projection={
+        projection = {
             "_id": False,
             "sheetId": True,
             "data": True,
@@ -104,7 +104,7 @@ def getData():
             "test": True,
             "subtest": True,
             "type": True
-        })).sort('datetime',1)
+        })).sort("datetime", 1)
 
     return json.dumps(list(data)), 200
 
@@ -112,16 +112,15 @@ def getData():
 ###############################################################################
 
 
-'''These paths are for front end for people looking for interactive graphs'''
-#TODO: create error pages if user tries to skip a section of the input
+"""These paths are for front end for people looking for interactive graphs"""
 ###############################################################################
-@app.route("/cards", methods=["GET"])
+@app.route("/cards", methods = ["GET"])
 def genFormCards():
     data = list(valid.validCards())
     data.sort()
-    return render_template("card.html", result=data, navbar=[("Home","/"), ("Cards","/cards")], curr="Cards"), 200
+    return render_template("card.html", result=data, navbar=[("Home", "/"), ("Cards", "/cards")], curr = "Cards"), 200
 
-@app.route("/tests", methods=["GET"])
+@app.route("/tests", methods = ["GET"])
 def genFormTests():
     cards = request.args.getlist("card") ## Get card value from previous page
     if(not cards):
@@ -129,15 +128,15 @@ def genFormTests():
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
-        return render_template("reroute.html",page= "cards")
+        return render_template("reroute.html", page= "cards")
     ###########################################################################
     data = list(valid.validTests())
     data.sort()
-    response = make_response(render_template("test.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)),"/cards"), ("Tests","/tests")], curr="Tests"))
+    response = make_response(render_template("test.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), ("Tests", "/tests")], curr = "Tests"))
     response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
     return response, 200
 
-@app.route("/subtests", methods=["GET"])
+@app.route("/subtests", methods = ["GET"])
 def genFormSubtests():
     test = request.args.get("test")
     if not test:
@@ -146,18 +145,18 @@ def genFormSubtests():
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
-        return render_template("reroute.html", page="cards")
+        return render_template("reroute.html", page = "cards")
     elif not test:
-        return render_template("reroute.html", page="tests")
+        return render_template("reroute.html", page = "tests")
     ###########################################################################
 
     data = list(valid.validSubtests(test))
     data.sort()
-    response = make_response(render_template("subtest.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), ("Subtest","/subtests")], curr="Subtest"))
+    response = make_response(render_template("subtest.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), ("Subtest", "/subtests")], curr = "Subtest"))
     response.set_cookie("test", test)
     return response, 200
 
-@app.route("/types", methods=["GET"])
+@app.route("/types", methods = ["GET"])
 def genFormTypes():
     subtest = request.args.get("subtest")
 
@@ -170,16 +169,16 @@ def genFormTypes():
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
-        return render_template("reroute.html", page="cards")
+        return render_template("reroute.html", page = "cards")
     elif not test:
-        return render_template("reroute.html", page="tests")
+        return render_template("reroute.html", page = "tests")
     elif not subtest or not subtest in valid.validSubtests(test):
-        return render_template("reroute.html", page="subtests")
+        return render_template("reroute.html", page = "subtests")
     ###########################################################################
 
     data = list(valid.validTypes(test,subtest))
     data.sort()
-    response = make_response(render_template("type.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), (subtest,"/subtests"), ("Type","/types")], curr="Type"))
+    response = make_response(render_template("type.html", result = data, navbar=[("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), (subtest, "/subtests"), ("Type", "/types")], curr = "Type"))
     response.set_cookie("subtest", subtest)
     return response, 200
 
@@ -194,18 +193,18 @@ def genFormLabels():
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
-        return render_template("reroute.html", page="cards")
+        return render_template("reroute.html", page = "cards")
     elif not test:
-        return render_template("reroute.html", page="tests")
+        return render_template("reroute.html", page = "tests")
     elif not subtest or not subtest in valid.validSubtests(test):
-        return render_template("reroute.html", page="subtests")
-    elif not type or not type in valid.validTypes(test,subtest):
-        return render_template("reroute.html", page="type")
+        return render_template("reroute.html", page = "subtests")
+    elif not type or not type in valid.validTypes(test, subtest):
+        return render_template("reroute.html", page = "type")
     ###########################################################################
 
-    data = list(valid.validLabels(test,subtest,type))
+    data = list(valid.validLabels(test, subtest, type))
     data.sort()
-    response = make_response(render_template("label.html", result=data, navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"), (test,"/tests"), (subtest,"/subtests"), (type,"/types"), ("Labels","/labels")], curr="Labels"))
+    response = make_response(render_template("label.html", result = data, navbar = [("Home", "/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), (test, "/tests"), (subtest, "/subtests"), (type, "/types"), ("Labels", "/labels")], curr = "Labels"))
     response.set_cookie("type", type)
     return response, 200
 
@@ -223,18 +222,18 @@ def genDatePage():
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
-        return render_template("reroute.html", page="cards")
+        return render_template("reroute.html", page = "cards")
     elif not test:
-        return render_template("reroute.html", page="tests")
+        return render_template("reroute.html", page = "tests")
     elif not subtest or not subtest in valid.validSubtests(test):
-        return render_template("reroute.html", page="subtests")
+        return render_template("reroute.html", page = "subtests")
     elif not type or not type in valid.validTypes(test,subtest):
-        return render_template("reroute.html", page="type")
+        return render_template("reroute.html", page = "type")
     elif not labels or not set(labels) <= set(valid.validLabels(test, subtest, type)):
-        return render_template("reroute.html",page="labels")
+        return render_template("reroute.html",page = "labels")
     ###########################################################################
 
-    response = make_response(render_template("date.html", navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),(re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),("Dates","/dates")], curr="Dates"))
+    response = make_response(render_template("date.html", navbar = [("Home","/"), (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),(test, "/tests"), (subtest, "/subtests"), (type, "/types"),(re.sub(r'[\'\"\[\]]', r'', str(labels)), "/labels"),("Dates", "/dates")], curr = "Dates"))
     response.set_cookie("labels", json.dumps(labels) )
     return response, 200
 
@@ -251,15 +250,15 @@ def genGraph():
     start_month = start[0:7]
     end_month = end[0:7]
     print(start_month)
-    
+
     if update:
-        print(subprocess.Popen(['python3.4', 'dbUpdate.py', '-s', start_month, '-e', end_month]))
+        print(subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start_month, "-e", end_month]))
 
     response = make_response(render_template("graph.html", navbar=[("Home","/"), (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),(test,"/tests"),(subtest,"/subtests"),(type,"/types"),
                                                                     (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),(start+" to "+end,"/dates"),("Graph","/graph")], curr="Graph"))
     response.set_cookie("start", start)
     response.set_cookie("end", end)
-    
+
     return response, 200
 
 ###############################################################################
@@ -273,13 +272,13 @@ def getJavascript(fileName):
 
 @app.route("/css/<fileName>", methods=["GET"])
 def getCss(fileName):
-    return render_template("css/" + fileName), 200, {'Content-Type': 'text/css'};
+    return render_template("css/" + fileName), 200, {"Content-Type": "text/css"};
 
-'''
+"""
     Gets data for interactive graph. Gets all datapoints rather than a range
-    because it's easier to store the extra data than reload everytime the graph
+    because it"s easier to store the extra data than reload everytime the graph
     is changed
-'''
+"""
 ###############################################################################
 @app.route("/genData", methods=["GET"])
 def getSimpleData():
@@ -303,5 +302,5 @@ def getSimpleData():
     return json.dumps(list(data)), 200
 ###############################################################################
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

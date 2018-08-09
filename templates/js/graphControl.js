@@ -290,7 +290,7 @@ function main(data) {
       root.select(".y.axis").call(yAxis);  // update axis with new domain
 
       // update y-portions of path and circles.  Use transitions to make it smooth.  Update image AFTER update transition finishes
-      paths.transition().duration(250).attr("d", function(d) { return lineGenerator(graphData[d3.select(this).attr("data-legend")])}).each("end",updateImage);
+      paths.transition().duration(250).attr("d", function(d) { return lineGenerator(graphData[d3.select(this).attr("data-legend")])}).each("end", updateImage);
       circles.transition().duration(250).attr("cy", function (d) { return yScale(d.y) - padding.top}).each("end", updateImage);
 
       data.selectAll(".horizontalGrid").remove();  // remove horizontalGrid

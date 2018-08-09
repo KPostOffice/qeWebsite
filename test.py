@@ -10,7 +10,7 @@ class Test:
         self.subtests = self.generatesubtests(name)
 
     def generatesubtests(self, testName):
-        test = structure['tests'][testName]
+        test = structure["tests"][testName]
         subtests = []
         for subtest in test.keys():
             for type in test[subtest].keys():
@@ -28,10 +28,10 @@ class Test:
             labels.append(lab)
             batchReq = batchReq + req
 
-        info = gapi.spreadsheets().values().batchGet(spreadsheetId=sheetId,
-                                        ranges=batchReq).execute()
+        info = gapi.spreadsheets().values().batchGet(spreadsheetId = sheetId,
+                                                     ranges = batchReq).execute()
 
-        info = info['valueRanges']
+        info = info["valueRanges"]
 
         locData = 0
         locUpdate = 0
@@ -39,9 +39,9 @@ class Test:
         for group in labels:
             data = {}
             for label in group:
-                if 'values' in info[locData]:
-                    if re.match('\d+\.?\d*$', info[locData]['values'][0][0]):
-                        data[label] = float(info[locData]['values'][0][0])
+                if "values" in info[locData]:
+                    if re.match('\d+\.?\d*$', info[locData]["values"][0][0]):
+                        data[label] = float(info[locData]["values"][0][0])
 
                 locData += 1
 

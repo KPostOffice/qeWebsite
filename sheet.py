@@ -10,8 +10,8 @@ class Sheet:
     def genUpdate(self,gapi):
         updateList = self.test.genUpdate(self.sheetId, gapi)
         for update in updateList:
-            update['cardName'] = self.cardName
-            update['datetime'] = self.datetime
-            update['sheetId'] = self.sheetId
+            update["cardName"] = self.cardName
+            update["datetime"] = self.datetime
+            update["sheetId"] = self.sheetId
 
         return updateList

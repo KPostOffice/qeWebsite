@@ -12,11 +12,11 @@ import argparse
 # no second argument is present
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-s', '--start', required=True,
-        help='Start month for update of form YYYY-MM')
+parser.add_argument('-s', '--start', required = True,
+                    help='Start month for update of form YYYY-MM')
 
-parser.add_argument('-e', '--end', required=False, default=None,
-        help='End month of form YYYY-MM, equal to --start by default')
+parser.add_argument('-e', '--end', required = False, default = None,
+                    help='End month of form YYYY-MM, equal to --start by default')
 
 args = parser.parse_args()
 
@@ -37,13 +37,6 @@ monthEnd = int(dateEnd.group(2))
 yearStart = int(dateStart.group(1))
 yearEnd = int(dateEnd.group(1))
 
+### Keep sheetId to keep track of sheets in db already
 
-# TODO: Make sure that year is fairly recent and month is between 1 and 12
-
-
-# TODO: Deconstruct sheet name into variables
-
-### Remember to keep sheetId to keep track of sheets in db already
-
-# TODO: Implement final update function
 helper.runUpdate(monthStart, yearStart, monthEnd, yearEnd)
