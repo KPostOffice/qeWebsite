@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Choose dates to include{% endblock %}
+{% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
+{% block content%}
+  <h1>{{self.title()}}</h1>
+  <form class="dates" action="/graph" method="get">
+    {% for val in result %}
+      <div>
+        <input class="check" type="checkbox" name="card" value={{val}}>
+        <label class="check_label">{{val}}</label>
+      </div>
+    {% endfor %}
+  <input type="submit" name="" value="Next">
+  </form>
+{% endblock %}

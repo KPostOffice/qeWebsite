@@ -28,3 +28,14 @@ function date() {
     document.getElementById("endDate").min = document.getElementById("startDate").value;
   });
 }
+
+
+function dateRedirectUpdate() {
+    var redirect = document.getElementsByClassName("date")[0];
+    var exclude = document.getElementById("exclude").checked;
+    if(exclude) {
+	redirect.action = "/includeDates";
+    } else {
+	redirect.action = "/graph";
+    }
+}
