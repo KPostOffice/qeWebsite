@@ -49,6 +49,7 @@ function radioButtonForm(cookieName, redirect) {
 }
 
 function checkBoxForm(cookieName, redirect) {
+  console.log("I ran the function")
   boxes = document.getElementsByClassName("check");
   valueList = [];
   for(i in boxes) {
