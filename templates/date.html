@@ -4,7 +4,7 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content%}
   <h1>{{self.title()}}</h1>
-  <form class="date" action="dateFormEnter()" method="get">
+  <form class="date" onsubmit="dateFormEnter()">
     <input id="startDate" name="start" type="date" required>
     <input id="endDate" name="end" type="date" required><br><br>
     <input id="exclude" onchange="dateRedirectUpdate()" name="exclude" type="checkbox"><label>Exclude certain dates</label><br>
