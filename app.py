@@ -251,7 +251,11 @@ def genDatePage():
     elif not type or not type in valid.validTypes(test,subtest):
         return render_template("reroute.html", page = "type")
     elif not labels or not set(labels) <= set(valid.validLabels(test, subtest, type)):
+<<<<<<< HEAD
         return render_template("reroute.html",page = "Labels")
+=======
+        return render_template("reroute.html",page = str(labels))
+>>>>>>> 1f3f1d65b6ed192bc407618b36c4bb0fe3699e4f
     ###########################################################################
 
     response = make_response(render_template("date.html",
