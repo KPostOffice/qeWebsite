@@ -42,7 +42,7 @@ function radioButtonForm(cookieName, redirect) {
   if(val == null) {
     alert("Please make a selection");
   } else {
-    document.cookie = cookieName + "=" + value;
+    document.cookie = cookieName + "=" + val;
     window.location.href = redirect;
   }
 }
