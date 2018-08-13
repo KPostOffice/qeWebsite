@@ -67,7 +67,7 @@ function checkBoxForm(cookieName, redirect) {
 function dateFormEnter() {
   document.cookie = "start=" + document.getElementById("startDate").value;
   document.cookie = "end=" + document.getElementById("endDate").value;
-
+  document.cookie = "update=" + (document.getElementById("update").checked ? "on" : "off")
   if(document.getElementById("exclude").checked) {
     window.location.href = "/includeDate";
   } else {

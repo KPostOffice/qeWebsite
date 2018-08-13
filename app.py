@@ -272,7 +272,7 @@ def genDatePage():
 def genGraph():
     start = request.cookies.get("start")
     end = request.cookies.get("end")
-    # update = request.args.get("update") == "on"
+    update = request.cookies.get("update") == "on"
     cards=request.cookies.get("cards").split(",")
     test=request.cookies.get("test")
     subtest=request.cookies.get("subtest")
