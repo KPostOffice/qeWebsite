@@ -128,10 +128,9 @@ def genFormCards():
                            curr = "Cards"), 200
 
 @app.route("/tests", methods = ["GET"])
+
 def genFormTests():
-    cards = request.args.getlist("card") ## Get card value from previous page
-    if(not cards):
-        cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards")
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -146,14 +145,11 @@ def genFormTests():
                                                         ("Tests", "/tests")
                                                       ],
                                              curr = "Tests"))
-    response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
     return response, 200
 
 @app.route("/subtests", methods = ["GET"])
 def genFormSubtests():
-    test = request.args.get("test")
-    if not test:
-        test = request.cookies.get("test")
+    test = request.cookies.get("test")
     cards = request.cookies.get("cards")
     # Validity check/rerouting
     ###########################################################################
@@ -173,14 +169,11 @@ def genFormSubtests():
                                                         ("Subtest", "/subtests")
                                                       ],
                                              curr = "Subtest"))
-    response.set_cookie("test", test)
     return response, 200
 
 @app.route("/types", methods = ["GET"])
 def genFormTypes():
-    subtest = request.args.get("subtest")
-    if not subtest:
-        subtest = request.cookies.get("subtest")
+    subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards")
 
@@ -205,14 +198,11 @@ def genFormTypes():
                                                       ("Type", "/types")
                                                     ],
                                             curr = "Type"))
-    response.set_cookie("subtest", subtest)
     return response, 200
 
 @app.route("/labels", methods = ["GET"])
 def genFormLabels():
-    type = request.args.get("type")
-    if not type:
-        type = request.cookies.get("type")
+    type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards")
@@ -241,16 +231,11 @@ def genFormLabels():
                                                         ("Labels", "/labels")
                                                       ],
                                              curr = "Labels"))
-    response.set_cookie("type", type)
     return response, 200
 
 @app.route("/dates", methods = ["GET"])
 def genDatePage():
-
-    labels = request.args.getlist("labels")
-    if not labels:
-        labels = request.cookies.get("labels")
-
+    labels = request.cookies.get("labels")
     type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
@@ -280,13 +265,13 @@ def genDatePage():
                                                         ("Dates", "/dates")
                                                       ],
                                              curr = "Dates"))
-    response.set_cookie("labels", json.dumps(labels) )
+
     return response, 200
 
 @app.route("/graph", methods=["GET"])
 def genGraph():
-    start = request.args.get("start")
-    end = request.args.get("end")
+    start = request.cookies.get("start")
+    end = request.cookies.get("end")
     update = request.args.get("update") == "on"
     cards=request.cookies.get("cards")
     test=request.cookies.get("test")
@@ -311,8 +296,6 @@ def genGraph():
                                                         (start+" to "+end,"/dates"), ("Graph","/graph")
                                                       ],
                                              curr="Graph"))
-    response.set_cookie("start", start)
-    response.set_cookie("end", end)
 
     return response, 200
 

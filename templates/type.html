@@ -4,7 +4,7 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content %}
     <h1>Choose type</h1>
-    <form class="type" action="/labels" method="get">
+    <form class="type" action="radioButtonForm(test, /labels)" method="get">
       {% for val in result %}
         <div>
           <input class="rad" type="radio" name="type" value='{{val}}'>
@@ -13,4 +13,10 @@
       {% endfor %}
     <input type="submit" name="" value="Next">
     </form>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    {% include "./js/scripts.js"%}
+  </script>
 {% endblock %}

@@ -30,19 +30,39 @@ function date() {
 }
 
 
-function dateRedirectUpdate() {
-    var redirect = document.getElementsByClassName("date")[0];
-    var exclude = document.getElementById("exclude").checked;
-    if(exclude) {
-	redirect.action = "/includeDates";
-    } else {
-	redirect.action = "/graph";
+function radioButtonForm(cookieName, redirect) {
+  buttons = document.getElementsByClassName("rad");
+  val = null;
+  for(i in buttons) {
+    if(buttons[i].checked) {
+      val = buttons[i].value;
     }
+  }
+  if(val = null) {
+    alert("Please make a selection");
+  } else {
+    document.cookie = cookieName + "=" + value;
+    window.location.href = redirect;
+  }
+}
+
+function checkBoxForm(cookieName, redirect) {
+  boxes = document.getElementsByClassName("check");
+  valueList = [];
+  for(i in boxes) {
+    if(boxes[i].checked) {
+      valueList.push(boxes[i]);
+    }
+  }
+  if(valueList == []) {
+    alert("Please check at least one box");
+  } else {
+    document.cookie = cookieName + "=" + valueList;
+    window.location.href = redirect;
+  }
 }
 
 function dateFormEnter() {
-  // get start and end values stored as variables
-  // store date cookies
   document.cookie = "start=" + document.getElementById("startDate").value;
   document.cookie = "end=" + document.getElementById("endDate").value;
 
