@@ -40,8 +40,7 @@ function getCookies() {
   for(i in cookieArr) {
     [key,val] = cookieArr[i].split("=");
     if( val ) {
-      val = val.replace(/[\[\]\\\"]/g, "");
-      val = val.split("054 ");
+      val = val.split(,);
       if( !(key in cookies)) {
         cookies[key] = val;
       } else {
