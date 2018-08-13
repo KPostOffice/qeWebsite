@@ -4,7 +4,7 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content %}
     <h1>Choose subtest</h1>
-    <form class="subtest" action="/types" method="get">
+    <form class="subtest" action="radioButtonForm(subtest, /types)" method="get">
       {% for val in result %}
         <div>
           <input class="rad" type="radio" name="subtest" value='{{val}}' >
@@ -12,5 +12,5 @@
         </div>
       {% endfor %}
     <input type="submit" name="" value="Next">
-    </form>    
+    </form>
 {% endblock %}
