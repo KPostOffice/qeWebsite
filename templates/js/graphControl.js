@@ -37,7 +37,6 @@ function getJSONfile(fileName) {
 function getCookies() {
   cookies = {};
   cookieArr = document.cookie.split("; ");
-  console.log(cookieArr);
   for(i in cookieArr) {
     [key,val] = cookieArr[i].split("=");
     if( val ) {
