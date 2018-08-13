@@ -43,7 +43,11 @@ function radioButtonForm(cookieName, redirect) {
     return true;
   } else {
     document.cookie = cookieName + "=" + value;
+<<<<<<< HEAD
     window.location.replace(redirect)
+=======
+    window.location.href = redirect;
+>>>>>>> 6b72e43ba47435f2f16e888fdd73a0bb8bfc1c71
     return true;
   }
 }
