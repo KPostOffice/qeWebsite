@@ -309,8 +309,8 @@ def getIncludeDates():
     query["cardName"] = {"$in": request.cookies.get("cards").split(",")}
     query["subtest"] = request.cookies.get("subtest")
     query["datetime"] = {}
-    query["datetime"]["$lte"] = datetime.date.fromordinal(helper.getEpochTime(request.cookies.get("end"))) - datetime.datetime.utcfromtimestamp(0)
-    query["datetime"]["$gte"] = datetime.date.fromordinal(helper.getEpochTime(request.cookies.get("start"))) - datetime.datetime.utcfromtimestamp(0)
+    query["datetime"]["$lte"] = datetime.date.fromordinal(request.cookies.get("end")) - datetime.datetime.utcfromtimestamp(0)
+    query["datetime"]["$gte"] = datetime.date.fromordinal(request.cookies.get("start")) - datetime.datetime.utcfromtimestamp(0)
 
     data = (collection.find(
         query,
