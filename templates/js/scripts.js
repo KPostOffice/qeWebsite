@@ -39,3 +39,17 @@ function dateRedirectUpdate() {
 	redirect.action = "/graph";
     }
 }
+
+function dateFormEnter() {
+  // get start and end values stored as variables
+  // store date cookies
+  document.cookie = "start=" + document.getElementById("startDate").value;
+  document.cookie = "end=" + document.getElementById("endDate").value;
+
+  if(document.getElementById("exclude").checked) {
+    window.location.href = "/includeDate";
+  } else {
+    window.location.href = "/graph";
+  }
+
+}

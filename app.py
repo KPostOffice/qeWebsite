@@ -234,7 +234,7 @@ def genFormLabels():
     response = make_response(render_template("label.html", result = data,
                                              navbar = [
                                                         ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), 
+                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
                                                         (test, "/tests"),
                                                         (subtest, "/subtests"),
                                                         (type, "/types"),
@@ -315,6 +315,10 @@ def genGraph():
     response.set_cookie("end", end)
 
     return response, 200
+
+@app.route("/includeDates", methods = ["GET"])
+def getIncludeDates():
+    return 200
 
 ###############################################################################
 
