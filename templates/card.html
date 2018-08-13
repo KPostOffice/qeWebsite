@@ -4,7 +4,7 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content%}
   <h1>{{self.title()}}</h1>
-  <form class="card" onsubmit="checkBoxForm(cards, /tests)" method="post">
+  <form class="card" onsubmit="checkBoxForm(cards, /tests)" method="get">
     {% for val in result %}
       <div>
         <input class="check" type="checkbox" name="card" value={{val}}>
