@@ -32,6 +32,7 @@ function date() {
 
 function radioButtonForm(cookieName, redirect) {
   buttons = document.getElementsByClassName("rad");
+  form = document.getElementsByTagName("form")[0]
   val = null;
   for(i in buttons) {
     if(buttons[i].checked) {
@@ -40,10 +41,10 @@ function radioButtonForm(cookieName, redirect) {
   }
   if(val = null) {
     alert("Please make a selection");
-    return true;
+    return false;
   } else {
     document.cookie = cookieName + "=" + value;
-    window.location.replace(redirect)
+    form.action = redirect;
     return true;
   }
 }
@@ -59,10 +60,9 @@ function checkBoxForm(cookieName, redirect) {
   }
   if(valueList == []) {
     alert("Please check at least one box");
-    return true;
+    return false;
   } else {
     document.cookie = cookieName + "=" + valueList;
-    window.location.replace("google.com");
     return true;
   }
 }
