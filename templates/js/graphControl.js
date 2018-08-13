@@ -37,10 +37,11 @@ function getJSONfile(fileName) {
 function getCookies() {
   cookies = {};
   cookieArr = document.cookie.split("; ");
+  console.log(cookieArr);
   for(i in cookieArr) {
     [key,val] = cookieArr[i].split("=");
     if( val ) {
-      val = val.split(,);
+      val = val.split(",");
       if( !(key in cookies)) {
         cookies[key] = val;
       } else {
