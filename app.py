@@ -130,7 +130,7 @@ def genFormCards():
 @app.route("/tests", methods = ["GET"])
 
 def genFormTests():
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -150,7 +150,7 @@ def genFormTests():
 @app.route("/subtests", methods = ["GET"])
 def genFormSubtests():
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -175,7 +175,7 @@ def genFormSubtests():
 def genFormTypes():
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
 
     # Validity check/rerouting
     ###########################################################################
@@ -205,7 +205,7 @@ def genFormLabels():
     type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
 
     # Validity check/rerouting
     ###########################################################################
@@ -235,11 +235,11 @@ def genFormLabels():
 
 @app.route("/dates", methods = ["GET"])
 def genDatePage():
-    labels = request.cookies.get("labels")
+    labels = request.cookies.get("labels").split(",")
     type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -273,11 +273,11 @@ def genGraph():
     start = request.cookies.get("start")
     end = request.cookies.get("end")
     update = request.args.get("update") == "on"
-    cards=request.cookies.get("cards")
+    cards=request.cookies.get("cards").split(",")
     test=request.cookies.get("test")
     subtest=request.cookies.get("subtest")
     type=request.cookies.get("type")
-    labels=request.cookies.get("labels")
+    labels=request.cookies.get("labels").split(",")
     start_month = start[0:7]
     end_month = end[0:7]
     print(start_month)
