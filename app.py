@@ -326,7 +326,7 @@ def getIncludeDates():
             "type": False,
             "cardName": True
         })).sort("datetime", 1)
-    return render_template(data, 200)
+    return render_template(data), 200
 
 ###############################################################################
 
