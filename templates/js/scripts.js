@@ -60,11 +60,9 @@ function checkBoxForm(cookieName, redirect) {
   }
   if(valueList == []) {
     alert("Please check at least one box");
-    return false;
   } else {
     document.cookie = cookieName + "=" + valueList;
-    form.action = redirect
-    return false;
+    window.location.href = redirect;
   }
 }
 
