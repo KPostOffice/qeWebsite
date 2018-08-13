@@ -5,6 +5,7 @@ import valid
 import re
 import subprocess
 from config import collection, dateRegex
+import helper
 
 app = Flask(__name__)
 app.debug = True
@@ -251,7 +252,7 @@ def genDatePage():
     elif not type or not type in valid.validTypes(test,subtest):
         return render_template("reroute.html", page = "type")
     elif not labels or not set(labels) <= set(valid.validLabels(test, subtest, type)):
-        return render_template("reroute.html",page = "Labels")
+        return render_template("reroute.html", page = "Labels")
     ###########################################################################
 
     response = make_response(render_template("date.html",
@@ -301,7 +302,28 @@ def genGraph():
 
 @app.route("/includeDates", methods = ["GET"])
 def getIncludeDates():
-    return 200
+    query = {}
+    query["test"] = request.cookies.get("test")
+    query["type"] = request.cookies.get("type")
+    query["cardName"] = {"$in": request.cookies.get(cards).parse(",")}
+    query["subtest"] = request.cookiest.get("subtest")
+    query["datetime"] = {}
+    query["datetime"]["$lte"] = helper.getEpochTime(request.cookies.get("end"))
+    query["datetime"]["$gte"] = helper.getEpochTime(request.cookies.get("start"))
+
+    data = (collection.find(
+        query,
+        projection = {
+            "_id": False,
+            "sheetId": False,
+            "data": False,
+            "datetime": True,
+            "test": False,
+            "subtest": False,
+            "type": False,
+            "cardName": True
+        })).sort("datetime", 1)
+    return render_template(data, 200)
 
 ###############################################################################
 
