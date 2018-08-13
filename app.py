@@ -303,8 +303,8 @@ def genGraph():
 
 @app.route("/includeDates", methods = ["GET"])
 def getIncludeDates():
-    start = datetime.fromordinal(request.cookies.get("end"))
-    end = datetime.fromordinal(request.cookies.get("start"))
+    start = datetime.date.fromordinal(request.cookies.get("end"))
+    end = datetime.date.fromordinal(request.cookies.get("start"))
     query = {}
     query["test"] = request.cookies.get("test")
     query["type"] = request.cookies.get("type")
