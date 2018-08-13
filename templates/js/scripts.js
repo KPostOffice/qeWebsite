@@ -54,7 +54,7 @@ function checkBoxForm(cookieName, redirect) {
   valueList = [];
   for(i in boxes) {
     if(boxes[i].checked) {
-      valueList.push(boxes[i]);
+      valueList.push(boxes[i].value);
     }
   }
   if(valueList == []) {
@@ -62,7 +62,7 @@ function checkBoxForm(cookieName, redirect) {
     return true;
   } else {
     document.cookie = cookieName + "=" + valueList;
-    window.location.href = redirect;
+    window.location = "google.com";
     return true;
   }
 }
