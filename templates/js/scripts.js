@@ -69,7 +69,7 @@ function dateFormEnter() {
   document.cookie = "end=" + document.getElementById("endDate").value;
   document.cookie = "update=" + (document.getElementById("update").checked ? "on" : "off")
   if(document.getElementById("exclude").checked) {
-    window.location.href = "/includeDate";
+    window.location.href = "/includeDates";
   } else {
     window.location.href = "/graph";
   }

@@ -305,7 +305,7 @@ def getIncludeDates():
     query = {}
     query["test"] = request.cookies.get("test")
     query["type"] = request.cookies.get("type")
-    query["cardName"] = {"$in": request.cookies.get(cards).parse(",")}
+    query["cardName"] = {"$in": request.cookies.get("cards").parse(",")}
     query["subtest"] = request.cookiest.get("subtest")
     query["datetime"] = {}
     query["datetime"]["$lte"] = helper.getEpochTime(request.cookies.get("end"))
