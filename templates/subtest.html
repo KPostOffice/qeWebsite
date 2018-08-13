@@ -4,14 +4,14 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content %}
     <h1>Choose subtest</h1>
-    <form class="subtest" onsubmit="return radioButtonForm(subtest, /types)">
+    <form class="subtest" >
       {% for val in result %}
         <div>
           <input class="rad" type="radio" name="subtest" value='{{val}}' >
           <label class="rad_label">{{val}}</label>
         </div>
       {% endfor %}
-    <input type="submit" name="" value="Next">
+    <input type="button" onclick="radioButtonForm(subtest, /types)" name="" value="Next">
     </form>
 {% endblock %}
 

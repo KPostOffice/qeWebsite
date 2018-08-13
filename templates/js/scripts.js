@@ -41,11 +41,9 @@ function radioButtonForm(cookieName, redirect) {
   }
   if(val == null) {
     alert("Please make a selection");
-    return false;
   } else {
     document.cookie = cookieName + "=" + value;
-    form.action = redirect;
-    return true;
+    window.location.href = redirect;
   }
 }
 
@@ -58,7 +56,7 @@ function checkBoxForm(cookieName, redirect) {
       valueList.push(boxes[i].value);
     }
   }
-  if(valueList == []) {
+  if(valueList.length == 0) {
     alert("Please check at least one box");
   } else {
     document.cookie = cookieName + "=" + valueList;
