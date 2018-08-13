@@ -39,7 +39,7 @@ function radioButtonForm(cookieName, redirect) {
       val = buttons[i].value;
     }
   }
-  if(val = null) {
+  if(val == null) {
     alert("Please make a selection");
     return false;
   } else {
@@ -50,8 +50,8 @@ function radioButtonForm(cookieName, redirect) {
 }
 
 function checkBoxForm(cookieName, redirect) {
-  console.log("I ran the function")
   boxes = document.getElementsByClassName("check");
+  form = document.getElementsBytTagName("form")[0]
   valueList = [];
   for(i in boxes) {
     if(boxes[i].checked) {
@@ -63,7 +63,8 @@ function checkBoxForm(cookieName, redirect) {
     return false;
   } else {
     document.cookie = cookieName + "=" + valueList;
-    return true;
+    form.action = redirect
+    return false;
   }
 }
 
