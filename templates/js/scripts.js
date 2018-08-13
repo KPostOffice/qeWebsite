@@ -62,7 +62,7 @@ function checkBoxForm(cookieName, redirect) {
     return true;
   } else {
     document.cookie = cookieName + "=" + valueList;
-    window.location = "google.com";
+    window.location.replace("google.com");
     return true;
   }
 }
