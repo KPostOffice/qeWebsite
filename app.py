@@ -317,13 +317,7 @@ def getIncludeDates():
     data = (collection.find(
         query,
         projection = {
-            "_id": False,
-            "sheetId": False,
-            "data": False,
             "datetime": True,
-            "test": False,
-            "subtest": False,
-            "type": False,
             "cardName": True
         })).sort("datetime", 1)
     return render_template(data), 200
