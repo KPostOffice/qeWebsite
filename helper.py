@@ -51,7 +51,8 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
             {
                 "sheetId": update["sheetId"],
                 "subtest": update["subtest"],
-                "type": update["test"]
+                "test": update["test"],
+                "type": update["type"]
             }, {"$set":update}, upsert = True))
 
     collection.bulk_write(query)
