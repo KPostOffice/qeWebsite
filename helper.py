@@ -40,7 +40,7 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
                     datetime = getEpochTime(file["name"])
                     curSheet = Sheet(test, card, datetime, file["id"])
                     updateList = updateList + curSheet.genUpdate(sheetService)
-                    time.sleep(2)
+                    time.sleep(1.3)
 
         curYear = curYear + 1 if curMonth == 12 else curYear
         curMonth = (curMonth % 12) + 1
