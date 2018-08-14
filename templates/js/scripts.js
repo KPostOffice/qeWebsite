@@ -73,5 +73,15 @@ function dateFormEnter() {
   } else {
     window.location.href = "/graph";
   }
+}
 
+function excludeDates() {
+  excludeList = [];
+  dateList = docuement.getElementsByClassName("date");
+  for( i in dateList) {
+    if(!dateList[i].checked) {
+      excludeList.push(dateList[i].value)
+    }
+  }
+  document.cookie = "exclude=" + excludeList
 }
