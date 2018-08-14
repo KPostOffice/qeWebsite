@@ -320,7 +320,7 @@ def getIncludeDates():
             "datetime": True,
             "cardName": True
         })).sort("datetime", 1)
-    return render_template(data), 200
+    return json.dumps(list(data)), 200
 
 ###############################################################################
 
