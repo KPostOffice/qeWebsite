@@ -311,8 +311,8 @@ def getIncludeDates():
     query["cardName"] = {"$in": request.cookies.get("cards").split(",")}
     query["subtest"] = request.cookies.get("subtest")
     query["datetime"] = {}
-    query["datetime"]["$lte"] = int(datetime.datetime(year = end[0], month = end[1], day = end[2]) - datetime.datetime.utcfromtimestamp(0))
-    query["datetime"]["$gte"] = int(datetime.datetime(year = start[1], month = start[1], day = start[2]) - datetime.datetime.utcfromtimestamp(0))
+    query["datetime"]["$lte"] = int((datetime.datetime(year = end[0], month = end[1], day = end[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
+    query["datetime"]["$gte"] = int((datetime.datetime(year = start[1], month = start[1], day = start[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
 
     data = (collection.find(
         query,
