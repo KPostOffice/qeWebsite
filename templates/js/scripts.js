@@ -77,11 +77,12 @@ function dateFormEnter() {
 
 function excludeDates() {
   excludeList = [];
-  dateList = docuement.getElementsByClassName("date");
+  dateList = document.getElementsByClassName("check");
   for( i in dateList) {
     if(!dateList[i].checked) {
-      excludeList.push(dateList[i].value)
+      excludeList.push(dateList[i].value);
     }
   }
-  document.cookie = "exclude=" + excludeList
+  document.cookie = "exclude=" + excludeList;
+  window.location.href = "/graph";
 }
