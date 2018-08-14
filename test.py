@@ -22,7 +22,7 @@ class Test:
         update = []
         labels = []
         batchReq = []
-        sheets = [i["properties"]["title"] for i in gapi.spreadsheets().get(sheetId)["sheets"]]
+        sheets = [i["properties"]["title"] for i in gapi.spreadsheets().get(spreadsheetId = sheetId)["sheets"]]
         for subtest in self.subtests:
             if(subtest.name in sheets):
                 update.append(subtest.genUpdate())
