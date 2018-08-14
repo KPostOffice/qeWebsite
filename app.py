@@ -321,7 +321,8 @@ def getIncludeDates():
             "datetime": True,
             "cardName": True
         })).sort("datetime", 1)
-    return json.dumps(list(data)), 200
+    response = make_response(render_template("includeDates.html", data=[i["datetime"] + " " + i["cardName"] for i in data]))
+    return response, 200
 
 ###############################################################################
 
