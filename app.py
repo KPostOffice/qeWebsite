@@ -317,6 +317,7 @@ def getIncludeDates():
     data = (collection.find(
         query,
         projection = {
+            "_id": False,
             "datetime": True,
             "cardName": True
         })).sort("datetime", 1)
