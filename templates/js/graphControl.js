@@ -68,7 +68,7 @@ function main(data) {
   test = cookies["test"][0];
   subtest = cookies["subtest"][0];
   type = cookies["type"][0];
-
+  exclude = cookies["exclude"].split(",").map(x => Date(x).toDateString());
   cards = cookies["cards"];
   labels = cookies["labels"];
 
@@ -97,16 +97,19 @@ function main(data) {
   for( card in data ) {
     for( item in data[card] ) {
       for( label in labels ) {
-	key = card + ":" + labels[label]
-	if( ! (key in graphData) ) {
-	  graphData[key] = []
+        key = card + ":" + labels[label]
+        if( ! (key in graphData) ) {
+          graphData[key] = []
         }
-	if( data[card][item]["data"] && data[card][item]["data"][labels[label]]) {
-	  val = data[card][item]["data"][labels[label]];
-	  (graphData[key]).push({"x": new Date(data[card][item]["datetime"]*1000), "y": val});
-	  minData = Math.min(val, minData);
-	  maxData = Math.max(val, maxData);
-	}
+        if( data[card][item]["data"] && data[card][item]["data"][labels[label]]) {
+          tempDate = new Date(data[card][item]["datetime"]*1000);
+          if(! exclude.includes(tempDate.toDateString()) ) {
+            val = data[card][item]["data"][labels[label]];
+            (graphData[key]).push({"x": tempDate, "y": val});
+            minData = Math.min(val, minData);
+            maxData = Math.max(val, maxData);
+          }
+        }
       }
     }
   }
