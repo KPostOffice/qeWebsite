@@ -11,6 +11,36 @@ import datetime
 app = Flask(__name__)
 app.debug = True
 
+# cookie name route tuple
+navbarInfo = [
+               ("cards", "/cards"),
+               ("test", "/tests"), 
+               ("subtest", "/subtests"),
+               ("type", "/types"),
+               ("labels", "/labels"),
+               ("dates", "/dates"),
+               ("exclude", "/includeDates"),
+               ("graph", "/graph")
+             ]
+
+def genNavbar(request, currentPage):
+    toRet = [("Home", "/")]
+    for (cookieName, route) in navbarInfo:
+        cookie = request.cookies.get(cookieName)
+        if cookie:
+            if cookieName == "exclude":
+                cookie = "include"
+            toRet.append((cookie, route))
+        elif cookieName == "dates":
+            start = request.cookies.get("start")
+            end = request.cookies.get("end")
+            if start and end:
+                toRet.append((start + " to " + end, route))
+        elif cookieName == currentPage:
+            toRet.append((currentPage, route))
+    return toRet
+    
+
 @app.route("/")
 def index():
     return render_template("index.html",
@@ -122,17 +152,20 @@ def getData():
 def genFormCards():
     data = list(valid.validCards())
     data.sort()
+    cards = request.cookies.get("cards")
+    if not cards:
+        cards = "cards"
     return render_template("card.html", result = data,
-                           navbar = [
-                                      ("Home", "/"),
-                                      ("Cards", "/cards")
-                                    ],
-                           curr = "Cards"), 200
+                           navbar = genNavbar(request, cards), 
+                           curr = cards), 200
 
 @app.route("/tests", methods = ["GET"])
 
 def genFormTests():
     cards = request.cookies.get("cards").split(",")
+    test = request.cookies.get("test")
+    if not test:
+        test = "test"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -141,18 +174,17 @@ def genFormTests():
     data = list(valid.validTests())
     data.sort()
     response = make_response(render_template("test.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        ("Tests", "/tests")
-                                                      ],
-                                             curr = "Tests"))
+                                             navbar = genNavbar(request, test),
+                                             curr = test))
     return response, 200
 
 @app.route("/subtests", methods = ["GET"])
 def genFormSubtests():
     test = request.cookies.get("test")
     cards = request.cookies.get("cards").split(",")
+    subtest = request.cookies.get("subtest")
+    if not subtest:
+        subtest = "subtest"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -164,13 +196,8 @@ def genFormSubtests():
     data = list(valid.validSubtests(test))
     data.sort()
     response = make_response(render_template("subtest.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        (test, "/tests"),
-                                                        ("Subtest", "/subtests")
-                                                      ],
-                                             curr = "Subtest"))
+                                             navbar = genNavbar(request, subtest),
+                                             curr = subtest))
     return response, 200
 
 @app.route("/types", methods = ["GET"])
@@ -178,7 +205,9 @@ def genFormTypes():
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards").split(",")
-
+    type = request.cookies.get("type")
+    if not type:
+        type = "type"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -192,14 +221,8 @@ def genFormTypes():
     data = list(valid.validTypes(test, subtest))
     data.sort()
     response = make_response(render_template("type.html", result = data,
-                                             navbar=[
-                                                      ("Home", "/"),
-                                                      (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                      (test, "/tests"),
-                                                      (subtest, "/subtests"),
-                                                      ("Type", "/types")
-                                                    ],
-                                            curr = "Type"))
+                                             navbar = genNavbar(request, type),
+                                             curr = type))
     return response, 200
 
 @app.route("/labels", methods = ["GET"])
@@ -208,7 +231,9 @@ def genFormLabels():
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards").split(",")
-
+    labels = request.cookies.get("labels")
+    if not labels:
+        labels = "labels"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -224,15 +249,8 @@ def genFormLabels():
     data = list(valid.validLabels(test, subtest, type))
     data.sort()
     response = make_response(render_template("label.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        (test, "/tests"),
-                                                        (subtest, "/subtests"),
-                                                        (type, "/types"),
-                                                        ("Labels", "/labels")
-                                                      ],
-                                             curr = "Labels"))
+                                             navbar = genNavbar(request, labels),
+                                             curr = labels))
     return response, 200
 
 @app.route("/dates", methods = ["GET"])
@@ -242,6 +260,15 @@ def genDatePage():
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
     cards = request.cookies.get("cards").split(",")
+    start = request.cookies.get("start")
+    end = request.cookies.get("end")
+
+    if not start or not end:
+        dates = "dates"
+    else:
+        dates = start + " to " + end
+    
+
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -257,16 +284,8 @@ def genDatePage():
     ###########################################################################
 
     response = make_response(render_template("date.html",
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        (test, "/tests"),
-                                                        (subtest, "/subtests"),
-                                                        (type, "/types"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(labels)), "/labels"),
-                                                        ("Dates", "/dates")
-                                                      ],
-                                             curr = "Dates"))
+                                             navbar = genNavbar(request, dates),
+                                             curr = dates))
 
     return response, 200
 
@@ -288,15 +307,7 @@ def genGraph():
         print(subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start_month, "-e", end_month]))
 
     response = make_response(render_template("graph.html",
-                                             navbar = [
-                                                        ("Home","/"),
-                                                        (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),
-                                                        (test,"/tests"),
-                                                        (subtest,"/subtests"),
-                                                        (type,"/types"),
-                                                        (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),
-                                                        (start+" to "+end,"/dates"), ("Graph","/graph")
-                                                      ],
+                                             navbar = genNavbar(request, "Graph"),
                                              curr="Graph"))
 
     return response, 200
@@ -319,9 +330,16 @@ def getIncludeDates():
         projection = {
             "_id": False,
             "datetime": True,
-            "cardName": True
+            "cardName": True,
+            "sheetId": True
         })).sort("datetime", 1)
-    response = make_response(render_template("includeDates.html", data=[i["datetime"] + " " + i["cardName"] for i in data]))
+    response = make_response(render_template("includeDate.html", result=[
+                                                                          [
+                                                                           datetime.datetime.utcfromtimestamp(i["datetime"]).date().isoformat() + " : " + i["cardName"], 
+                                                                           i["sheetId"]
+                                                                          ] for i in data],    ## Pass sheet ID because it is more reliable at getting the correct datapoints than date alone
+                                                                 navbar = genNavbar(request, "exclude"),
+                                                                 curr = "include"))
     return response, 200
 
 ###############################################################################

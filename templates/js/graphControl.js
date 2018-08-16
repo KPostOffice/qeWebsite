@@ -68,7 +68,17 @@ function main(data) {
   test = cookies["test"][0];
   subtest = cookies["subtest"][0];
   type = cookies["type"][0];
-  exclude = cookies["exclude"].split(",").map(x => Date(x).toDateString());
+  tempExclude = [];
+  if( cookies["exclude"] ) {
+    tempExclude = cookies["exclude"].join(" ").split(/\s+/);
+  }
+  exclude = [];
+  for( i in tempExclude ) {
+    if( tempExclude[i] != "") {
+      exclude.push(tempExclude[i]);
+    }
+  }
+  console.log(exclude);
   cards = cookies["cards"];
   labels = cookies["labels"];
 
@@ -103,7 +113,8 @@ function main(data) {
         }
         if( data[card][item]["data"] && data[card][item]["data"][labels[label]]) {
           tempDate = new Date(data[card][item]["datetime"]*1000);
-          if(! exclude.includes(tempDate.toDateString()) ) {
+          if(! exclude.includes(data[card][item]["sheetId"]) ) {
+	    console.log(data[card][item]);
             val = data[card][item]["data"][labels[label]];
             (graphData[key]).push({"x": tempDate, "y": val});
             minData = Math.min(val, minData);

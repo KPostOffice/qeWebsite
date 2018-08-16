@@ -7,8 +7,8 @@
   <form class="dates">
     {% for val in result %}
       <div>
-        <input class="check" type="checkbox" name="date" value={{val}} checked>
-        <label class="check_label">{{val}}</label>
+        <input class="check" type="checkbox" name="date" value={{val[1]}} checked>
+        <label class="check_label">{{val[0]}}</label>
       </div>
     {% endfor %}
   <input type="button" onclick="excludeDates()" name="" value="Next">

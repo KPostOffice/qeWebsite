@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% set cookiesDelete = ['start', 'end', 'update', 'exclude', 'graph'] %}
 {% block title %}Choose label(s){% endblock %}
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content %}
@@ -11,7 +11,7 @@
           <label class="check_label">{{val}}</label>
         </div>
       {% endfor %}
-    <input type="button" onclick="checkBoxForm('labels', '/dates')" name="" value="Next">
+    <input type="button" onclick="checkBoxForm('labels', '/dates', {{cookiesDelete}})" name="" value="Next">
     </form>
 {% endblock %}
 

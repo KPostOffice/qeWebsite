@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-
+{% set cookiesDelete = ['subtest', 'type', 'labels', 'start', 'end', 'update', 'exclude', 'graph'] %}
 {% block title %}Choose test{% endblock %}
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content%}
@@ -12,7 +12,7 @@
           <label class="rad_label">{{val}}</label>
         </div>
       {% endfor %}
-    <input type="button" onclick="radioButtonForm('test', '/subtests')" name="" value="Next">
+    <input type="button" onclick="radioButtonForm('test', '/subtests', {{cookiesDelete}})" name="" value="Next">
     </form>
 {% endblock %}
 

@@ -1,7 +1,17 @@
 
+function getCookieDict() {
+  cookiesArray = document.cookie.split("; ");
+  cookieDict = {};
+  for( i in cookiesArray ) {
+    singleCookie = cookiesArray[i].split("=");
+    cookieDict[singleCookie[0]] = singleCookie[1];
+  }
+  return cookieDict;
+}
+
 
 function date() {
-
+  cookies = getCookieDict();
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth()+1; //January is 0
@@ -14,9 +24,16 @@ function date() {
       }
 
   today = yyyy+"-"+mm+"-"+dd;
+  if(cookies["start"]) {
+    document.getElementById("startDate").setAttribute("value", cookies["start"]);
+  }
+  if(cookies["end"]) {
+    document.getElementById("endDate").setAttribute("value", cookies["end"]);
+  } else {
+    document.getElementById("endDate").setAttribute("value", today);
+  } 
   document.getElementById("endDate").setAttribute("max", today);
-  document.getElementById("startDate").setAttribute("max", today);
-  document.getElementById("endDate").setAttribute("value", today);
+  document.getElementById("startDate").setAttribute("max", document.getElementById("endDate").value);
 
   document.getElementById("endDate").addEventListener("change",
   function(){
@@ -30,7 +47,7 @@ function date() {
 }
 
 
-function radioButtonForm(cookieName, redirect) {
+function radioButtonForm(cookieName, redirect, cookiesToDelete) {
   buttons = document.getElementsByClassName("rad");
   form = document.getElementsByTagName("form")[0]
   val = null;
@@ -44,10 +61,13 @@ function radioButtonForm(cookieName, redirect) {
   } else {
     document.cookie = cookieName + "=" + val;
     window.location.href = redirect;
+    for(i in cookiesToDelete) {
+      deleteCookie(cookiesToDelete[i]);
+    }
   }
 }
 
-function checkBoxForm(cookieName, redirect) {
+function checkBoxForm(cookieName, redirect, cookiesToDelete) {
   boxes = document.getElementsByClassName("check");
   form = document.getElementsByTagName("form")[0]
   valueList = [];
@@ -61,6 +81,9 @@ function checkBoxForm(cookieName, redirect) {
   } else {
     document.cookie = cookieName + "=" + valueList;
     window.location.href = redirect;
+    for(i in cookiesToDelete) {
+      deleteCookie(cookiesToDelete[i]);
+    }
   }
 }
 
@@ -71,7 +94,8 @@ function dateFormEnter() {
   if(document.getElementById("exclude").checked) {
     window.location.href = "/includeDates";
   } else {
-    window.location.href = "/graph";
+    document.cookie = "graph=Graph";
+    window.location.href = "/graph"; 
   }
 }
 
@@ -83,6 +107,11 @@ function excludeDates() {
       excludeList.push(dateList[i].value);
     }
   }
+  document.cookie = "graph=Graph"
   document.cookie = "exclude=" + excludeList;
   window.location.href = "/graph";
+}
+
+function deleteCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
