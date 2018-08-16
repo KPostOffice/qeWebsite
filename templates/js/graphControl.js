@@ -20,7 +20,15 @@ var rainbow = [
                "#6457A6",
                "#000000",
                "#666666",
-               "#a5742a"
+               "#a5742a",
+               "#a6cd86",
+               "#dd8383",
+               "#a8ffff",
+               "#dda1e9",
+               "#19165c",
+               "#611e05",
+               "#124d00",
+               "#4b0065"
              ]
 
 //Sends GET request to a given link and returns a JS object
