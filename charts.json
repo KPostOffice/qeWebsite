@@ -62,24 +62,28 @@
       },
       "64 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "1Q 4PMD": "!D2",
           "2Q 4PMD": "!E2",
           "4Q 8PMD": "!F2"
         },
         "latency min": {
+          "SR-IOV": "!I2",
           "1Q 2PMD": "!J2",
           "1Q 4PMD": "!K2",
           "2Q 4PMD": "!L2",
           "4Q 8PMD": "!M2"
         },
         "latency max": {
+          "SR-IOV": "!I3",
           "1Q 2PMD": "!J3",
           "1Q 4PMD": "!K3",
           "2Q 4PMD": "!L3",
           "4Q 8PMD": "!M3"
         },
         "latency avg": {
+          "SR-IOV": "!I4",
           "1Q 2PMD": "!J4",
           "1Q 4PMD": "!K4",
           "2Q 4PMD": "!L4",
@@ -148,21 +152,25 @@
       },
       "128 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
@@ -224,21 +232,25 @@
       },
       "256 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "2Q 4PMD": "!D2",
           "4Q 8PMD": "!E2"
         },
         "latency min": {
+          "SR-IOV": "!H2",
           "1Q 2PMD": "!I2",
           "2Q 4PMD": "!J2",
           "4Q 8PMD": "!K2"
         },
         "latency max": {
+          "SR-IOV": "!H3",
           "1Q 2PMD": "!I3",
           "2Q 4PMD": "!J3",
           "4Q 8PMD": "!K3"
         },
         "latency avg": {
+          "SR-IOV": "!H4",
           "1Q 2PMD": "!I4",
           "2Q 4PMD": "!J4",
           "4Q 8PMD": "!K4"
@@ -305,24 +317,28 @@
       },
       "1500 Bytes No VLAN": {
         "fps": {
+          "SR-IOV": "!B2",
           "1Q 2PMD": "!C2",
           "1Q 4PMD": "!D2",
           "2Q 4PMD": "!E2",
           "4Q 8PMD": "!F2"
         },
         "latency min": {
+          "SR-IOV": "!I2",
           "1Q 2PMD": "!J2",
           "1Q 4PMD": "!K2",
           "2Q 4PMD": "!L2",
           "4Q 8PMD": "!M2"
         },
         "latency max": {
+          "SR-IOV": "!I3",
           "1Q 2PMD": "!J3",
           "1Q 4PMD": "!K3",
           "2Q 4PMD": "!L3",
           "4Q 8PMD": "!M3"
         },
         "latency avg": {
+          "SR-IOV": "!I4",
           "1Q 2PMD": "!J4",
           "1Q 4PMD": "!K4",
           "2Q 4PMD": "!L4",

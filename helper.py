@@ -40,7 +40,7 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
                     datetime = getEpochTime(file["name"])
                     curSheet = Sheet(test, card, datetime, file["id"])
                     updateList = updateList + curSheet.genUpdate(sheetService)
-                    time.sleep(1.5)
+                    time.sleep(1.3)
 
         curYear = curYear + 1 if curMonth == 12 else curYear
         curMonth = (curMonth % 12) + 1
@@ -51,7 +51,8 @@ def runUpdate(monthStart, yearStart, monthEnd, yearEnd):
             {
                 "sheetId": update["sheetId"],
                 "subtest": update["subtest"],
-                "type": update["test"]
+                "test": update["test"],
+                "type": update["type"]
             }, {"$set":update}, upsert = True))
 
     collection.bulk_write(query)

@@ -5,9 +5,41 @@ import valid
 import re
 import subprocess
 from config import collection, dateRegex
+import helper
+import datetime
 
 app = Flask(__name__)
 app.debug = True
+
+# cookie name route tuple
+navbarInfo = [
+               ("cards", "/cards"),
+               ("test", "/tests"), 
+               ("subtest", "/subtests"),
+               ("type", "/types"),
+               ("labels", "/labels"),
+               ("dates", "/dates"),
+               ("exclude", "/includeDates"),
+               ("graph", "/graph")
+             ]
+
+def genNavbar(request, currentPage):
+    toRet = [("Home", "/")]
+    for (cookieName, route) in navbarInfo:
+        cookie = request.cookies.get(cookieName)
+        if cookie:
+            if cookieName == "exclude":
+                cookie = "include"
+            toRet.append((cookie, route))
+        elif cookieName == "dates":
+            start = request.cookies.get("start")
+            end = request.cookies.get("end")
+            if start and end:
+                toRet.append((start + " to " + end, route))
+        elif cookieName == currentPage:
+            toRet.append((currentPage, route))
+    return toRet
+    
 
 @app.route("/")
 def index():
@@ -120,18 +152,20 @@ def getData():
 def genFormCards():
     data = list(valid.validCards())
     data.sort()
+    cards = request.cookies.get("cards")
+    if not cards:
+        cards = "cards"
     return render_template("card.html", result = data,
-                           navbar = [
-                                      ("Home", "/"),
-                                      ("Cards", "/cards")
-                                    ],
-                           curr = "Cards"), 200
+                           navbar = genNavbar(request, cards), 
+                           curr = cards), 200
 
 @app.route("/tests", methods = ["GET"])
+
 def genFormTests():
-    cards = request.args.getlist("card") ## Get card value from previous page
-    if(not cards):
-        cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
+    test = request.cookies.get("test")
+    if not test:
+        test = "test"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -140,21 +174,17 @@ def genFormTests():
     data = list(valid.validTests())
     data.sort()
     response = make_response(render_template("test.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        ("Tests", "/tests")
-                                                      ],
-                                             curr = "Tests"))
-    response.set_cookie("cards", json.dumps(cards)) ## Values must be stored for graph
+                                             navbar = genNavbar(request, test),
+                                             curr = test))
     return response, 200
 
 @app.route("/subtests", methods = ["GET"])
 def genFormSubtests():
-    test = request.args.get("test")
-    if not test:
-        test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    test = request.cookies.get("test")
+    cards = request.cookies.get("cards").split(",")
+    subtest = request.cookies.get("subtest")
+    if not subtest:
+        subtest = "subtest"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -166,24 +196,18 @@ def genFormSubtests():
     data = list(valid.validSubtests(test))
     data.sort()
     response = make_response(render_template("subtest.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        (test, "/tests"),
-                                                        ("Subtest", "/subtests")
-                                                      ],
-                                             curr = "Subtest"))
-    response.set_cookie("test", test)
+                                             navbar = genNavbar(request, subtest),
+                                             curr = subtest))
     return response, 200
 
 @app.route("/types", methods = ["GET"])
 def genFormTypes():
-    subtest = request.args.get("subtest")
-    if not subtest:
-        subtest = request.cookies.get("subtest")
+    subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
-
+    cards = request.cookies.get("cards").split(",")
+    type = request.cookies.get("type")
+    if not type:
+        type = "type"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -197,26 +221,19 @@ def genFormTypes():
     data = list(valid.validTypes(test, subtest))
     data.sort()
     response = make_response(render_template("type.html", result = data,
-                                             navbar=[
-                                                      ("Home", "/"),
-                                                      (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                      (test, "/tests"),
-                                                      (subtest, "/subtests"),
-                                                      ("Type", "/types")
-                                                    ],
-                                            curr = "Type"))
-    response.set_cookie("subtest", subtest)
+                                             navbar = genNavbar(request, type),
+                                             curr = type))
     return response, 200
 
 @app.route("/labels", methods = ["GET"])
 def genFormLabels():
-    type = request.args.get("type")
-    if not type:
-        type = request.cookies.get("type")
+    type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
-
+    cards = request.cookies.get("cards").split(",")
+    labels = request.cookies.get("labels")
+    if not labels:
+        labels = "labels"
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -232,29 +249,26 @@ def genFormLabels():
     data = list(valid.validLabels(test, subtest, type))
     data.sort()
     response = make_response(render_template("label.html", result = data,
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"), 
-                                                        (test, "/tests"),
-                                                        (subtest, "/subtests"),
-                                                        (type, "/types"),
-                                                        ("Labels", "/labels")
-                                                      ],
-                                             curr = "Labels"))
-    response.set_cookie("type", type)
+                                             navbar = genNavbar(request, labels),
+                                             curr = labels))
     return response, 200
 
 @app.route("/dates", methods = ["GET"])
 def genDatePage():
-
-    labels = request.args.getlist("labels")
-    if not labels:
-        labels = request.cookies.get("labels")
-
+    labels = request.cookies.get("labels").split(",")
     type = request.cookies.get("type")
     subtest = request.cookies.get("subtest")
     test = request.cookies.get("test")
-    cards = request.cookies.get("cards")
+    cards = request.cookies.get("cards").split(",")
+    start = request.cookies.get("start")
+    end = request.cookies.get("end")
+
+    if not start or not end:
+        dates = "dates"
+    else:
+        dates = start + " to " + end
+    
+
     # Validity check/rerouting
     ###########################################################################
     if(not cards):
@@ -266,33 +280,25 @@ def genDatePage():
     elif not type or not type in valid.validTypes(test,subtest):
         return render_template("reroute.html", page = "type")
     elif not labels or not set(labels) <= set(valid.validLabels(test, subtest, type)):
-        return render_template("reroute.html",page = "labels")
+        return render_template("reroute.html", page = "Labels")
     ###########################################################################
 
     response = make_response(render_template("date.html",
-                                             navbar = [
-                                                        ("Home", "/"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(cards)), "/cards"),
-                                                        (test, "/tests"),
-                                                        (subtest, "/subtests"),
-                                                        (type, "/types"),
-                                                        (re.sub(r'[\'\"\[\]]', r'', str(labels)), "/labels"),
-                                                        ("Dates", "/dates")
-                                                      ],
-                                             curr = "Dates"))
-    response.set_cookie("labels", json.dumps(labels) )
+                                             navbar = genNavbar(request, dates),
+                                             curr = dates))
+
     return response, 200
 
 @app.route("/graph", methods=["GET"])
 def genGraph():
-    start = request.args.get("start")
-    end = request.args.get("end")
-    update = request.args.get("update") == "on"
-    cards=request.cookies.get("cards")
+    start = request.cookies.get("start")
+    end = request.cookies.get("end")
+    update = request.cookies.get("update") == "on"
+    cards=request.cookies.get("cards").split(",")
     test=request.cookies.get("test")
     subtest=request.cookies.get("subtest")
     type=request.cookies.get("type")
-    labels=request.cookies.get("labels")
+    labels=request.cookies.get("labels").split(",")
     start_month = start[0:7]
     end_month = end[0:7]
     print(start_month)
@@ -301,19 +307,48 @@ def genGraph():
         print(subprocess.Popen(["python3.4", "dbUpdate.py", "-s", start_month, "-e", end_month]))
 
     response = make_response(render_template("graph.html",
-                                             navbar = [
-                                                        ("Home","/"),
-                                                        (re.sub(r'[\'\"\[\]]',r'',str(cards)), "/cards"),
-                                                        (test,"/tests"),
-                                                        (subtest,"/subtests"),
-                                                        (type,"/types"),
-                                                        (re.sub(r'[\'\"\[\]]',r'',str(labels)), "/labels"),
-                                                        (start+" to "+end,"/dates"), ("Graph","/graph")
-                                                      ],
+                                             navbar = genNavbar(request, "Graph"),
                                              curr="Graph"))
-    response.set_cookie("start", start)
-    response.set_cookie("end", end)
 
+    return response, 200
+
+@app.route("/includeDates", methods = ["GET"])
+def getIncludeDates():
+    start = [int(i) for i in request.cookies.get("start").split("-")]
+    end = [int(i) for i in request.cookies.get("end").split("-")]
+    query = {}
+    query["test"] = request.cookies.get("test")
+    query["type"] = request.cookies.get("type")
+    query["cardName"] = {"$in": request.cookies.get("cards").split(",")}
+    query["subtest"] = request.cookies.get("subtest")
+    query["datetime"] = {}
+    query["datetime"]["$lte"] = int((datetime.datetime(year = end[0], month = end[1], day = end[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
+    query["datetime"]["$gte"] = int((datetime.datetime(year = start[0], month = start[1], day = start[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
+    labels = request.cookies.get("labels").split(",")
+    tempData = (collection.find(
+        query,
+        projection = {
+            "_id": False,
+            "datetime": True,
+            "cardName": True,
+            "sheetId": True,
+            "data": True
+        })).sort("datetime", 1)
+
+    data = []
+    for d in tempData:
+        currLabels = list(d["data"].keys())
+        for lab in currLabels:
+            if lab in labels:
+                data.append(d)
+
+    response = make_response(render_template("includeDate.html", result=[
+                                                                          [
+                                                                           datetime.datetime.utcfromtimestamp(i["datetime"]).date().isoformat() + " : " + i["cardName"], 
+                                                                           i["sheetId"]
+                                                                          ] for i in data],    ## Pass sheet ID because it is more reliable at getting the correct datapoints than date alone
+                                                                 navbar = genNavbar(request, "exclude"),
+                                                                 curr = "include"))
     return response, 200
 
 ###############################################################################

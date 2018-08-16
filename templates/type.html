@@ -1,16 +1,22 @@
 {% extends "base.html" %}
-
+{% set cookiesDelete = ['labels', 'start', 'end', 'update', 'exclude', 'graph'] %}
 {% block title %}Choose type{% endblock %}
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content %}
     <h1>Choose type</h1>
-    <form class="type" action="/labels" method="get">
+    <form class="type">
       {% for val in result %}
         <div>
           <input class="rad" type="radio" name="type" value='{{val}}'>
           <label class="rad_label">{{val}}</label>
         </div>
       {% endfor %}
-    <input type="submit" name="" value="Next">
+    <input type="button" onclick="radioButtonForm('type', '/labels', {{cookiesDelete}})" name="" value="Next">
     </form>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    {% include "./js/scripts.js"%}
+  </script>
 {% endblock %}

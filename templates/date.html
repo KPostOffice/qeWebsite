@@ -4,12 +4,12 @@
 {% block header %}<link rel="stylesheet" type="text/css" href="css/form.css" />{% endblock %}
 {% block content%}
   <h1>{{self.title()}}</h1>
-  <form class="date" action="/graph" method="get">
+  <form class="date">
     <input id="startDate" name="start" type="date" required>
     <input id="endDate" name="end" type="date" required><br><br>
     <input id="exclude" onchange="dateRedirectUpdate()" name="exclude" type="checkbox"><label>Exclude certain dates</label><br>
     <input id="update" name="update" type="checkbox"><label>Update data in this range</label><br>
-    <input type="submit" name="" value="Next">
+    <input type="button" onclick="dateFormEnter()" name="" value="Next">
   </form>
 {% endblock %}
 {% block scripts %}

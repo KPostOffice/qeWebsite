@@ -1,8 +1,6 @@
-* {
-    font-family: Overpass;
-}
-
 body {
+    font-family: Overpass;
+    font-size: 18px;
     background-color: #DCDCDC;
 }
 
