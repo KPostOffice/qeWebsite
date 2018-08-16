@@ -23,6 +23,8 @@ The instructions on each page of the website are fairly straight forward.  There
 
 1. When updating charts.json you will need to reload the website before the changes take place
 
+1. **To make sure that the website works as intended please use google chrome**
+
 ## Command Line Tool
 To install the command line tool first install python3.x, then run the command:
 ```
