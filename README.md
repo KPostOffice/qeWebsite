@@ -21,6 +21,8 @@ The instructions on each page of the website are fairly straight forward.  There
 
 1. The graph only has 12 colors on its palette as of now and `number_of_lines = number_of_cards * number_of_labels` if this number exceeds 12 these points will just be black with no lines connecting them.
 
+1. When updating charts.json you will need to reload the website before the changes take place
+
 ## Command Line Tool
 To install the command line tool first install python3.x, then run the command:
 ```
