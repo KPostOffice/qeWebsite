@@ -1,4 +1,10 @@
 
+
+var keyboardState = {};
+window.onkeyup = function(e) { keyboardState[e.keyCode] = false; }
+window.onkeydown = function(e) { keyboardState[e.keyCode] = true; }
+
+
 function getCookieDict() {
   cookiesArray = document.cookie.split("; ");
   cookieDict = {};
@@ -94,6 +100,7 @@ function dateFormEnter() {
   if(document.getElementById("exclude").checked) {
     window.location.href = "/includeDates";
   } else {
+    deleteCookie("exclude");
     document.cookie = "graph=Graph";
     window.location.href = "/graph"; 
   }
@@ -113,5 +120,22 @@ function excludeDates() {
 }
 
 function deleteCookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
+function dateboxClick(boxNum) {
+  if(dateboxClick.previous == undefined) {
+    dateboxClick.previous = boxNum;
+    return
+  }
+  range = [boxNum, dateboxClick.previous];
+  range = range.sort((a,b) => a-b);
+  isChecked = document.getElementById("date_" + boxNum).checked;
+  if( keyboardState[16] ) {
+    for( i = range[0]; i <= range[1]; i++) {
+      document.getElementById("date_" + i).checked = isChecked;
+    }
+  }
+
+  dateboxClick.previous = boxNum;
 }

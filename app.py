@@ -324,15 +324,24 @@ def getIncludeDates():
     query["datetime"] = {}
     query["datetime"]["$lte"] = int((datetime.datetime(year = end[0], month = end[1], day = end[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
     query["datetime"]["$gte"] = int((datetime.datetime(year = start[0], month = start[1], day = start[2]) - datetime.datetime.utcfromtimestamp(0)).total_seconds())
-
-    data = (collection.find(
+    labels = request.cookies.get("labels").split(",")
+    tempData = (collection.find(
         query,
         projection = {
             "_id": False,
             "datetime": True,
             "cardName": True,
-            "sheetId": True
+            "sheetId": True,
+            "data": True
         })).sort("datetime", 1)
+
+    data = []
+    for d in tempData:
+        currLabels = list(d["data"].keys())
+        for lab in currLabels:
+            if lab in labels:
+                data.append(d)
+
     response = make_response(render_template("includeDate.html", result=[
                                                                           [
                                                                            datetime.datetime.utcfromtimestamp(i["datetime"]).date().isoformat() + " : " + i["cardName"], 
