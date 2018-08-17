@@ -25,6 +25,42 @@ The instructions on each page of the website are fairly straight forward.  There
 
 1. **To make sure that the website works as intended please use google chrome**
 
+## Creating Your Own Credentials
+
+1. Download the [`auth.py`](js/auth.py) file from the qeWebsite github repo and put it in a directory to work from
+
+1. Go to the Google API Dashboard at [console.developers.google.com](console.developers.google.com)
+
+1. Click `Credentials` at the bottom of the left side-bar
+
+1. Click `Create Credentials` and select `OAuth client ID`
+
+1. Select the `Other` radio button, give it a name and click `Create`
+
+    * You might need to Configure your OAuth consent screen before you can select an option. This consists of entering a `Product name shown to users`
+
+1. It will display your client ID and your client secret. Click `OK` to exit the dialog
+
+1. On the Credentials dashboard click on the download button on the far right of the row for your new credentials
+
+1. Rename the file `client_secret.json` and move it to the same directory as you put the `auth.py` file
+
+1. Run the command
+
+    ```
+    $ sudo pip install --upgrade google-api-python-client oauth2client
+    ```
+
+1. Run the following commands to create the file `credentials.json`
+
+    ```
+    $ python3
+    >>> import auth
+    >>> auth.authorize()
+    ```
+
+1. Log into the website as root and replace the `credentials.json` and `client_secret.json` files with the ones you just created
+
 ## Command Line Tool
 To install the command line tool first install python3.x, then run the command:
 ```
